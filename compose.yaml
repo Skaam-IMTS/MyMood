@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/var/www
+      - ./database/data:/var/www/database/data
+      - /var/www/node_modules
+    networks:
+      - myMood
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - myMood
+
+networks:
+  myMood:
+    driver: bridge
