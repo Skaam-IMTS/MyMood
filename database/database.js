@@ -16,7 +16,7 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS role(
         id_role INTEGER PRIMARY KEY AUTOINCREMENT,
-        nom VARCHAR(100) UNIQUE
+        nom_role VARCHAR(100) UNIQUE
     );
   `);
   
@@ -24,115 +24,94 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS groupe(
       id_groupe INTEGER PRIMARY KEY AUTOINCREMENT,
-      nom VARCHAR(100) NOT NULL
+      nom_groupe VARCHAR(100) NOT NULL,
+      blacklist BOOLEAN DEFAULT 0
     );
   `);
 
-  // Créer la table `users`
+  // Créer la table `user`
   db.run(`
-    CREATE TABLE IF NOT EXISTS users(
-        id_users INTEGER PRIMARY KEY AUTOINCREMENT,
-        nom VARCHAR(100),
-        email VARCHAR(100) UNIQUE NOT NULL,
-        password VARCHAR(255) UNIQUE NOT NULL,
-        id_role INTEGER NOT NULL,
-        FOREIGN KEY(id_role) REFERENCES role(id_role)
+    CREATE TABLE IF NOT EXISTS user(
+      id_user INTEGER PRIMARY KEY AUTOINCREMENT,
+      nom VARCHAR(100),
+      prenom VARCHAR(100),
+      email VARCHAR(100) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      id_role INTEGER NOT NULL,
+      FOREIGN KEY(id_role) REFERENCES role(id_role)
     );
   `);
 
-  // Créer la table `admin` avec une relation vers `users`
-  db.run(`
-    CREATE TABLE IF NOT EXISTS admin(
-      id_admin INTEGER PRIMARY KEY,
-      FOREIGN KEY (id_admin) REFERENCES users(id_users) ON DELETE CASCADE
-    );
-  `);
-
-  // Créer la table `etudiant` avec une relation vers `users'
-  db.run(`
-    CREATE TABLE IF NOT EXISTS etudiant(
-      id_etudiant INTEGER PRIMARY KEY,
-      FOREIGN KEY (id_etudiant) REFERENCES users(id_users) ON DELETE CASCADE
-    );
-  `);
-
-  // Créer la table 'superviseur' avec une relation vers `users'
-  db.run(`
-  CREATE TABLE IF NOT EXISTS superviseur (
-    id_superviseur INTEGER PRIMARY KEY,
-    FOREIGN KEY (id_superviseur) REFERENCES users(id_users) ON DELETE CASCADE
-  );
-  `);
-
-  // créer la table 'mood' avec une relation vers 'etudiant'
+  // créer la table 'mood' avec une relation vers 'user'
   db.run(`
     CREATE TABLE IF NOT EXISTS mood(
       id_mood INTEGER PRIMARY KEY AUTOINCREMENT,
       id_user INTEGER NOT NULL,
-      date DATE NOT NULL,
+      update_date DATE NOT NULL,
       score INTEGER CHECK (score BETWEEN 0 AND 100) DEFAULT 0,
-      FOREIGN KEY (id_user) REFERENCES etudiant(id_user)
+      en_alerte BOOLEAN DEFAULT 0,
+      FOREIGN KEY (id_user) REFERENCES user(id_user)
     );
   `);
 
-  // Créer la table 'responsable' avec une relation vers 'groupe' et 'superviseur'
-  db.run(`
-    CREATE TABLE IF NOT EXISTS responsable(
-      id_superviseur INTEGER,
-      id_groupe INTEGER,
-      PRIMARY KEY(id_superviseur, id_groupe),
-      FOREIGN KEY(id_superviseur) REFERENCES superviseur(id_superviseur),
-      FOREIGN KEY(id_groupe) REFERENCES groupe(id_groupe)
-    );
-  `);
-
-  // Créer la table 'inscription' avec une relation vers 'groupe' et 'etudiant'
+  // Créer la table 'inscription' avec une relation vers 'groupe' et 'user'
   db.run(`
     CREATE TABLE IF NOT EXISTS inscription(
-      id_etudiant INTEGER,
+      id_user INTEGER NOT NULL,
       id_groupe INTEGER NOT NULL,
-      PRIMARY KEY(id_etudiant),
-      FOREIGN KEY(id_etudiant) REFERENCES etudiant(id_etudiant),
+      est_responsable BOOLEAN DEFAULT 0,
+      PRIMARY KEY(id_user, id_groupe),
+      FOREIGN KEY(id_user) REFERENCES user(id_user),
       FOREIGN KEY(id_groupe) REFERENCES groupe(id_groupe)
     );
   `);
 
-  // créer la table 'blacklist' avec une relation vers 'superviseur' et 'is_blacklisted'
+  // Créer la table 'blacklist'
   db.run(`
     CREATE TABLE IF NOT EXISTS blacklist(
-      id_blacklist INTEGER,
-      nom TEXT,
-      id_superviseur INTEGER NOT NULL,
-      PRIMARY KEY(id_blacklist),
-      UNIQUE(id_superviseur),
-      FOREIGN KEY(id_superviseur) REFERENCES superviseur(id_superviseur)
-  );
-  `);
-
-  // créer la table 'is_blacklisted' avec une relation vers 'blacklist' et 'etudiant'
-  db.run(`
-    CREATE TABLE IF NOT EXISTS is_blacklisted(
-      id_blacklist INTEGER,
-      id_etudiant INTEGER NOT NULL,
-      PRIMARY KEY(id_blacklist, id_etudiant),
-      FOREIGN KEY(id_blacklist) REFERENCES blacklist(id_blacklist),
-      FOREIGN KEY(id_etudiant) REFERENCES etudiant(id_etudiant)
+      id_user INTEGER NOT NULL,
+      id_blacklist INTEGER NOT NULL,
+      est_superviseur BOOLEAN DEFAULT 0,
+      PRIMARY KEY(id_user, id_blacklist),
+      FOREIGN KEY(id_blacklist) REFERENCES groupe(id_groupe),
+      FOREIGN KEY(id_user) REFERENCES user(id_user)
     );
   `);
  
   // Insérer les rôles par défaut (admin, superviseur, étudiant)
   db.run(`INSERT OR IGNORE INTO role (nom) 
-    VALUES ('admin'), ('superviseur'), ('etudiant')
+    VALUES ('admin'), ('superviseur'), ('étudiant')
   `);
+  
+  // Insérer un groupe par défaut si la table `groupe` est vide
+  const groupe1 = "Formation 1";
+  const groupe2 = "Formation 2";
+  const blacklist1 = "blacklist superviseur 1";
+
+  db.get('SELECT COUNT(*) AS count FROM groupe', (err, row) => {
+    if (row.count === 0) {
+      db.run(`INSERT or IGNORE INTO groupe (nom) VALUES (?), (?), (?)`, [groupe1,groupe2, blacklist1] , function(err) {
+        if (!err) {
+          const groupId = this.lastID;
+        }
+      });
+    }
+  });
 
   // Insérer un utilisateur admin par défaut si la table `users` est vide
-  const defaultEmail = 'test';
-  const defaultPassword = '$2a$10$u0neBLXT221r2Un2VxM24.mTuQXYWVAzhQctxqv9if8KCbmh7FO.i';
+  const adminEmail = 'admin@test.com';
+  const adminPassword = '$2a$10$uNxiwGTw8oqCeEWybp/DJen6GWrCseDxnu9m4uJluTfWSzR.4P6Uu';
   const adminRoleId = 1; // id du rôle admin
+  const superviseurEmail = "super@test.com";
+  const superviseurPassword = '$2a$10$uNxiwGTw8oqCeEWybp/DJen6GWrCseDxnu9m4uJluTfWSzR.4P6Uu';
+  const superviseurRoleId = 2; // id du rôle superviseur
+  const etudiantEmail = "etud@test.com";
+  const etudiantPassword = '$2a$10$uNxiwGTw8oqCeEWybp/DJen6GWrCseDxnu9m4uJluTfWSzR.4P6Uu';
+  const etudiantRoleId = 3; // id du rôle étudiant
 
-  db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+  db.get('SELECT COUNT(*) AS count FROM user', (err, row) => {
     if (row.count === 0) {
-      db.run(`INSERT INTO users (email, password, id_role) VALUES (?, ?, ?)`, [defaultEmail, defaultPassword, adminRoleId], function(err) {
+      db.run(`INSERT or IGNORE INTO user (email, password, id_role) VALUES (?, ?, ?),(?, ?, ?),(?, ?, ?)`, [adminEmail, adminPassword, adminRoleId, superviseurEmail, superviseurPassword, superviseurRoleId, etudiantEmail,etudiantPassword, etudiantRoleId], function(err) {
         if (!err) {
           const userId = this.lastID;
         }
