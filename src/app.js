@@ -2,6 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 
+// Routes
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
+// Middleware
+const authMiddleware = require('./middlewares/authenticate');
+
+
 const app = express();
 
 // Middleware pour activer CORS, parsing JSON et Swagger
@@ -21,7 +29,7 @@ app.use((req, res, next) => {
 
 
 // Middleware pour les erreurs 404
-app.use((req, res) => res.status(404).json({ error: 'Ressource non trouvée' }));
+// app.use((req, res) => res.status(404).json({ error: 'Ressource non trouvée' }));
 
 // Middleware pour les erreurs serveur
 app.use((err, req, res, next) => {
@@ -32,6 +40,10 @@ app.use((err, req, res, next) => {
 // Création du serveur HTTP
 const server = http.createServer(app);
 
+// Routes
+app.use('/api', authMiddleware);
+app.use('/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Export des modules nécessaires pour les tests ou l'extension
 module.exports = { app, server };
