@@ -12,8 +12,6 @@ exports.groupes = (req, res) => {
         if (!rows || rows.length === 0) {
             return res.json({ message: 'Pas de groupe trouvé' });
         }
-
-        console.log(rows);
         res.json(rows);
     });
 };
@@ -96,9 +94,12 @@ exports.inscriptionUserSuppression = (req, res) =>{
 };
 
 exports.inscriptionUserAjout = (req, res) =>{
-    const { id_user, id_groupe } = req.body;
+    const { email, nom_groupe } = req.body;
     db.run(`INSERT INTO inscription (id_user, id_groupe)
-        VALUES (?, ?);`, [id_user, id_groupe],  function (err) {
+        SELECT id_user, id_groupe
+        FROM user
+        JOIN groupe
+        ON email = ? and nom_groupe = ?;`, [id_user, id_groupe],  function (err) {
             console.log(this);
             
             if (err || this.changes == 0) {
