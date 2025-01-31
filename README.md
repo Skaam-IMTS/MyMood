@@ -10,9 +10,9 @@
 . Cloner le repository
 . Construire le docker :
 
-    ```sh
-        docker compose up --build -d
-    ```
+```sh
+    docker compose up --build -d
+```
 
 Et voilà l'api est prête !
 
@@ -22,4 +22,4 @@ L'adresse de base de l'api sera sur http://localhost:3000 .
 
 
 # Front
-La partie front sera dans le dossier 'public'
+La partie front sera dans le dossier 'public'.
