@@ -5,6 +5,8 @@ const path = require('path');
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
+const groupesRoute = require('./routes/groupesRoute');
+const moodRoute = require('./routes/moodRoute');
 // const adminRoutes = require('./routes/adminRoutes');
 
 // Middleware
@@ -44,6 +46,8 @@ const server = http.createServer(app);
 // Routes
 app.use('/api', authMiddleware);
 app.use('/', authRoutes);
+app.use('/api/groupes', groupesRoute);
+app.use('/api/mood', moodRoute);
 // app.use('/api/admin', adminRoutes);
 
 // Export des modules nécessaires pour les tests ou l'extension
