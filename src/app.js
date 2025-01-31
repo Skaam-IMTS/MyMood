@@ -4,7 +4,8 @@ const http = require('http');
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
-const adminRoutes = require('./routes/adminRoutes');
+const groupesRoute = require('./routes/groupesRoute');
+// const adminRoutes = require('./routes/adminRoutes');
 
 // Middleware
 const authMiddleware = require('./middlewares/authenticate');
@@ -41,9 +42,10 @@ app.use((err, req, res, next) => {
 const server = http.createServer(app);
 
 // Routes
-app.use('/api', authMiddleware);
+// app.use('/api', authMiddleware);
 app.use('/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/groupes', groupesRoute);
+// app.use('/api/admin', adminRoutes);
 
 // Export des modules nécessaires pour les tests ou l'extension
 module.exports = { app, server };

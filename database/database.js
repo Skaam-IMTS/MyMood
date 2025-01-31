@@ -24,8 +24,7 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS groupe(
       id_groupe INTEGER PRIMARY KEY AUTOINCREMENT,
-      nom_groupe VARCHAR(100) NOT NULL,
-      blacklist BOOLEAN DEFAULT 0
+      nom_groupe VARCHAR(100) NOT NULL
     );
   `);
 
@@ -79,7 +78,7 @@ db.serialize(() => {
   `);
  
   // Insérer les rôles par défaut (admin, superviseur, étudiant)
-  db.run(`INSERT OR IGNORE INTO role (nom) 
+  db.run(`INSERT OR IGNORE INTO role (nom_role) 
     VALUES ('admin'), ('superviseur'), ('étudiant')
   `);
   
@@ -90,7 +89,7 @@ db.serialize(() => {
 
   db.get('SELECT COUNT(*) AS count FROM groupe', (err, row) => {
     if (row.count === 0) {
-      db.run(`INSERT or IGNORE INTO groupe (nom) VALUES (?), (?), (?)`, [groupe1,groupe2, blacklist1] , function(err) {
+      db.run(`INSERT or IGNORE INTO groupe (nom_groupe) VALUES (?), (?), (?)`, [groupe1,groupe2, blacklist1] , function(err) {
         if (!err) {
           const groupId = this.lastID;
         }
