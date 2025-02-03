@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Group = require('../models/Group');
 const passGenerator = require('generate-password');
 const mailService = require('../services/MailService');
+
 class AdminController {
     static async getAllUsers(req, res, next) {
         try {

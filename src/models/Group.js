@@ -24,7 +24,31 @@ class Group {
         });
     }
 
-    static async updateInscription(groupId, userId, estResponsable) {
+    static async updateInscription(groupId, userId) {
+        // Vérifier si l'utilisateur est déjà inscrit
+        const inscription = await new Promise((resolve, reject) => {
+            db.get(
+                'SELECT * FROM inscription WHERE id_groupe = ? AND id_user = ?',
+                [groupId, userId],
+                (err, row) => {
+                    if (err) return reject(err);
+                    resolve(row);
+                }
+            );
+        });
+
+        // Vérifier si l'utilisateur est un superviseur
+        const estResponsable = await new Promise((resolve, reject) => {
+            db.get(
+                'SELECT * FROM inscription WHERE id_groupe = ? AND id_user = ? AND est_responsable = 1',
+                [groupId, userId],
+                (err, row) => {
+                    if (err) return reject(err);
+                    resolve(row ? 1 : 0);
+                }
+            );
+        }); 
+
         return new Promise((resolve, reject) => {
             db.run(
                 'INSERT OR REPLACE INTO inscription (id_groupe, id_user, est_responsable) VALUES (?, ?, ?)',

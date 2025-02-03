@@ -11,8 +11,7 @@ class UserController {
           res.json({
               email: user.email,
               nom: user.nom,
-              prenom: user.prenom,
-              role: user.role
+              prenom: user.prenom
           });
       } catch(err) {
           next(err);

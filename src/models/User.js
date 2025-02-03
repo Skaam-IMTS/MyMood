@@ -72,7 +72,7 @@ class User {
     }
   
     async updateProfile(data) {
-      const { email, password, nom, prenom } = data;
+      const { email, nom, prenom, newPassword } = data;
       const updates = [];
       const values = [];
 
@@ -80,9 +80,9 @@ class User {
           updates.push('email = ?');
           values.push(email);
       }
-      if (password) {
+      if (newPassword) {
           updates.push('password = ?');
-          values.push(await bcrypt.hash(password, 10));
+          values.push(await bcrypt.hash(newPassword, 10));
       }
       if (nom) {
           updates.push('nom = ?');

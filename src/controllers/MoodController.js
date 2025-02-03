@@ -14,15 +14,15 @@ exports.mood = (req, res) => {
 };
 
 exports.moodAjout = (req, res) => {
-    const { score, en_alerte, email } = req.body;
+    const { newMood, en_alerte, email } = req.body;
     const update_date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });;
     const sql = `
-    INSERT INTO mood (id_user, update_date, score, en_alerte)
+    INSERT INTO mood (id_user, update_date, newMood, en_alerte)
     SELECT id_user , ?, ?, ?
     FROM user
     WHERE email = ?;
             `;
-    db.run(sql, [update_date, score, en_alerte, email], (err) => {
+    db.run(sql, [update_date, newMood, en_alerte, email], (err) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -47,11 +47,11 @@ class MoodController {
 
     static async updateMood(req, res, next) {
         try {
-            const {score, enAlerte} = req.body;
-            if (score < 0 || score > 100) {
-                throw new AppError(400, 'Le score doit être entre 0 et 100');
+            const {newMood, enAlerte} = req.body;
+            if (newMood < 0 || newMood > 100) {
+                throw new AppError(400, 'Le newMood doit être entre 0 et 100');
             }
-            const mood = new Mood(req.user.userId, score, enAlerte);
+            const mood = new Mood(req.user.userId, newMood, enAlerte);
             await mood.save();
             if (enAlerte) {
                 // Récupérer les informations de l'étudiant
@@ -65,7 +65,7 @@ class MoodController {
                     {
                         nom: student.nom,
                         prenom: student.prenom,
-                        score: mood.score
+                        mood: mood.score
                     },
                     supervisors
                 );

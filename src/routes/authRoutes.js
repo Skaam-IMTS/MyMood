@@ -14,7 +14,7 @@ const AuthController = require('../controllers/AuthController');
  * @swagger
  * /login:
  *   post:
- *     summary: Connecte un utilisateur existant
+ *     summary: Connecter un utilisateur existant
  *     tags: [Authentification]
  *     requestBody:
  *       required: true
