@@ -106,10 +106,10 @@ db.serialize(() => {
         prenom: 'Ad'
       }
       const superviseur = {
-        email : 'j.Bonneau@mymood.fr',
+        email : 'j.seigne@mymood.fr',
         password : '$2a$10$l7UNc6MYdb1FBliej5fKw.9TqN2Ni3ZnKZW.Hv.E5EXmKKpSVsA76', //'superpass'
         role: 'superviseur',
-        nom: 'Bonneau',
+        nom: 'Seigne',
         prenom: 'Jean'
       }
       const etudiant = {
@@ -129,9 +129,15 @@ db.serialize(() => {
             }
           });
           // inserer un mood au stagiaire par défaut
-          db.run(`INSERT or IGNORE INTO mood (id_user, update_date, score, en_alerte) VALUES (?, ?, ?, ?)`, [3, new Date().toISOString().slice(0, 19).replace('T', ' '), 50, 0], function(err) {
+          db.run(`INSERT or IGNORE INTO mood (id_user, update_date, score, en_alerte) VALUES (?, ?, ?, ?)`, [3, new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }), 20, 0], function(err) {
             if (!err) {
               const moodId = this.lastID;
+            }
+          });
+          // insérer les inscriptions par défaut
+          db.run(`INSERT or IGNORE INTO inscription (id_user, id_groupe, est_responsable) VALUES (?,?,?), (?,?,?)`, [2, 1, 1, 3, 1, 0], function(err) {
+            if (!err) {
+              const inscriptionId = this.lastID;
             }
           });
         }

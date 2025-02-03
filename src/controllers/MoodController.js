@@ -15,7 +15,7 @@ exports.mood = (req, res) => {
 
 exports.moodAjout = (req, res) => {
     const { score, en_alerte, email } = req.body;
-    const update_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const update_date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });;
     const sql = `
     INSERT INTO mood (id_user, update_date, score, en_alerte)
     SELECT id_user , ?, ?, ?
@@ -53,6 +53,23 @@ class MoodController {
             }
             const mood = new Mood(req.user.userId, score, enAlerte);
             await mood.save();
+            if (enAlerte) {
+                // Récupérer les informations de l'étudiant
+                const student = await User.findById(req.user.userId);
+
+                // Récupérer tous les superviseurs des groupes de l'étudiant
+                const supervisors = await Group.getSupervisorsForStudent(req.user.userId);
+
+                // Envoyer l'email d'alerte aux superviseurs
+                await mailService.sendAlertNotification(
+                    {
+                        nom: student.nom,
+                        prenom: student.prenom,
+                        score: mood.score
+                    },
+                    supervisors
+                );
+            }
             res.json({message: "Humeur mise à jour"});
         } catch (err) {
             next(err);
