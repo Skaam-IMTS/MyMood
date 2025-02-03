@@ -9,6 +9,8 @@ services:
       - /var/www/node_modules
     networks:
       - myMood
+    env_file:
+      - .env
   maildev:
     image: maildev/maildev
     ports:

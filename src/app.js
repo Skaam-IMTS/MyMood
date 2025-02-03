@@ -1,24 +1,40 @@
 const express = require('express');
 const cors = require('cors');
-const http = require('http');
 const path = require('path');
+const { errorHandler } = require('./middlewares/error');
+// Swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./config/swagger');
+
+const app = express();
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
-const groupesRoute = require('./routes/groupesRoute');
-const moodRoute = require('./routes/moodRoute');
+const moodRoutes = require('./routes/moodRoutes');
+const userRoutes = require('./routes/userRoutes');
+const groupRoutes = require('./routes/groupRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+// const authRoutes = require('./routes/authRoutes');
 // const adminRoutes = require('./routes/adminRoutes');
 
 // Middleware
-const authMiddleware = require('./middlewares/authenticate');
+// const authMiddleware = require('./middlewares/auth');
 
 
-const app = express();
 
 // Middleware pour activer CORS, parsing JSON et Swagger
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', authRoutes);
+app.use('/mood', moodRoutes);
+app.use('/user', userRoutes);
+app.use('/groups', groupRoutes);
+app.use('/admin', adminRoutes);
+// app.use('/api', authMiddleware);
+// app.use('/api/admin', adminRoutes);
 
 // Middleware pour récupérer les informations du client
 app.use((req, res, next) => {
@@ -30,25 +46,20 @@ app.use((req, res, next) => {
     next();
 });
 
-
-// // Middleware pour les erreurs 404
-// app.use((req, res) => res.status(404).json({ error: 'Ressource non trouvée' }));
-
-// Middleware pour les erreurs serveur
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Erreur interne du serveur' });
+// Middleware pour les erreurs 404
+app.use((req, res, next) => {
+    const err = new Error('Ressource non trouvée');
+    err.statusCode = 404;
+    next(err);
 });
 
-// Création du serveur HTTP
-const server = http.createServer(app);
+// Middleware de gestion d'erreur
+app.use(errorHandler);
 
-// Routes
-app.use('/api', authMiddleware);
-app.use('/', authRoutes);
-app.use('/api/groupes', groupesRoute);
-app.use('/api/mood', moodRoute);
-// app.use('/api/admin', adminRoutes);
+// Middleware pour les erreurs serveur
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).json({ error: 'Erreur interne du serveur' });
+// });
 
-// Export des modules nécessaires pour les tests ou l'extension
-module.exports = { app, server };
+module.exports = app;
