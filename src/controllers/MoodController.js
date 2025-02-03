@@ -4,31 +4,31 @@ const Group = require('../models/Group');
 const User = require('../models/User');
 const mailService = require('../services/MailService');
 
-exports.mood = (req, res) => {
-    db.all(`SELECT * FROM mood`, (err, rows) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.json(rows);
-    });
-};
+// exports.mood = (req, res) => {
+//     db.all(`SELECT * FROM mood`, (err, rows) => {
+//         if (err) {
+//             return res.status(500).json({ error: err.message });
+//         }
+//         res.json(rows);
+//     });
+// };
 
-exports.moodAjout = (req, res) => {
-    const { newMood, en_alerte, email } = req.body;
-    const update_date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });;
-    const sql = `
-    INSERT INTO mood (id_user, update_date, newMood, en_alerte)
-    SELECT id_user , ?, ?, ?
-    FROM user
-    WHERE email = ?;
-            `;
-    db.run(sql, [update_date, newMood, en_alerte, email], (err) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.json({ message: 'Mood ajouté avec succès' });
-    });
-};
+// exports.moodAjout = (req, res) => {
+//     const { newMood, en_alerte, email } = req.body;
+//     const update_date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });;
+//     const sql = `
+//     INSERT INTO mood (id_user, update_date, newMood, en_alerte)
+//     SELECT id_user , ?, ?, ?
+//     FROM user
+//     WHERE email = ?;
+//             `;
+//     db.run(sql, [update_date, newMood, en_alerte, email], (err) => {
+//         if (err) {
+//             return res.status(500).json({ error: err.message });
+//         }
+//         res.json({ message: 'Mood ajouté avec succès' });
+//     });
+// };
 
 const Mood = require('../models/Mood');
 

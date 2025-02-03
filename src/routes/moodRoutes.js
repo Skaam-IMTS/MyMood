@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const MoodController = require('../controllers/MoodController');
+const GroupController = require('../controllers/GroupController');
 const auth = require('../middlewares/auth');
 
 /**
@@ -71,5 +72,28 @@ router.get('/status', auth, MoodController.getStatus);
 
 // Modifier son score d'humeur et état d'alerte
 router.post('/update', auth, MoodController.updateMood);
+
+/**
+ * @swagger
+ * /mood/{studentId}/reset-alert:
+ *   put:
+ *     summary: Réinitialiser l'alerte d'un stagiaire
+ *     tags: [Superviseur]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: studentId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID du stagiaire
+ *     responses:
+ *       200:
+ *         description: Alerte réinitialisée
+ *       403:
+ *         description: Accès non autorisé
+ */
+router.put('/:studentId/reset-alert', auth, GroupController.resetStudentAlert);
 
 module.exports = router;
