@@ -2,8 +2,15 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 require('dotenv').config();
 
-// Utiliser la variable d'environnement pour le chemin de la base de données
 const dbPath = process.env.DB_PATH || path.resolve(__dirname, 'data/mymood.db');
+
+// Créer le dossier data s'il n'existe pas
+const fs = require('fs');
+const dataDir = path.dirname(dbPath);
+if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+}
+
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -156,21 +163,19 @@ db.serialize(() => {
 
             }]
           
-          // insérer les inscriptions par défaut
-          db.run('BEGIN TRANSACTION');
-          const stmt = db.prepare(`
+          // insérer les inscriptions par défaut si la table `inscription` est vide
+          const query = `
               INSERT OR IGNORE INTO inscription (id_user, id_groupe, est_responsable) VALUES (?,?,?)
-          `);
+          `;
+
           inscription.forEach(inscription => {
-              stmt.run(inscription.id_user, inscription.id_groupe, inscription.est_responsable);
-          });
-          stmt.finalize();
-          db.run('COMMIT', function(err) {
-              if (err) {
-                  console.error(err);
-                  db.run('ROLLBACK');
-              }
-          });
+              db.run(query, [inscription.id_user, inscription.id_groupe, inscription.est_responsable], err => {
+                if (err) {
+                    console.error('Erreur insertion:', err);
+                }
+              });
+
+          }); 
         }
       });
 });
