@@ -161,7 +161,12 @@ db.serialize(() => {
               id_groupe: 3,
               est_responsable: 1
 
-            }]
+            },
+           {
+            id_user: 3,
+            id_groupe: 1,
+            est_responsable: 0
+           }]
           
           // insérer les inscriptions par défaut si la table `inscription` est vide
           const query = `
