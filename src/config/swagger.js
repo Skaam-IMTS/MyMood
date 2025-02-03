@@ -22,18 +22,25 @@ const swaggerOptions = {
                     bearerFormat: 'JWT'
                 }
             },
-            schemas: {
-                Mood: {
-                    type: 'object',
-                    properties: {
-                        id_mood: { type: 'integer' },
-                        id_user: { type: 'integer' },
-                        score: { type: 'integer' },
-                        en_alerte: { type: 'boolean' },
-                        update_date: { type: 'string', format: 'date-time' }
-                    }
-                }
-            }
+            // schemas: {
+            //     Group: {
+            //         type: 'object',
+            //         properties: {
+            //             id_group: { type: 'integer', description: 'Identifiant unique du groupe' },
+            //             name: { type: 'string', description: 'Nom du groupe', example: 'Formation Back' },
+            //         }
+            //     },
+            //     Mood: {
+            //         type: 'object',
+            //         properties: {
+            //             id_mood: { type: 'integer' },
+            //             id_user: { type: 'integer' },
+            //             score: { type: 'integer' },
+            //             en_alerte: { type: 'boolean' },
+            //             update_date: { type: 'string', format: 'date-time' }
+            //         }
+            //     }
+            // }
         },
         security: [{ bearerAuth: [] }]
     },

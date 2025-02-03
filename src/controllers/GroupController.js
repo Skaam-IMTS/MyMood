@@ -20,12 +20,19 @@ class GroupController {
                 throw new AppError(403, 'Accès non autorisé');
             }
             const students = await Group.getGroupStudentsWithMood(req.params.groupId);
-            res.json(students);
+            res.json(
+                {students: students.map(student => ({
+                    id: student.id_user,
+                    nom: student.nom,
+                    prenom: student.prenom,
+                    mood: student.score,
+                    en_alerte: student.en_alerte
+                }))});
         } catch (err) {
             next(err);
         }
     }
-    
+
     static async resetStudentAlert(req, res, next) {
         try {
             if (req.user.role !== 'superviseur') {

@@ -9,7 +9,7 @@
 
 . Cloner le repository. 
 
-. Créer un fichier '.env' à la racine du projet et copier le contenu de '.env.example'.
+. Créer un fichier '.env' à la racine du projet et y copier le contenu de '.env.example'.
 
 . Construire le conteneur docker :
 
@@ -46,3 +46,8 @@ Superviseur :
 Stagiaire : 
 - email : j.Doe@mymood.fr
 - password : etudpass
+
+# Mail
+Les mails seront interceptés par Maildev.
+
+Ils seront accessible sur http://localhost:1080/

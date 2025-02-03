@@ -86,11 +86,13 @@ db.serialize(() => {
       // Insérer un groupe par défaut si la table `groupe` est vide
       const groupe1 = "Formation Front";
       const groupe2 = "Formation Back";
+      const groupe3 = "Formation CDA";
+      const groupe4 = "Formation PrepaNum";
 
 
       db.get('SELECT COUNT(*) AS count FROM groupe', (err, row) => {
         if (row.count === 0) {
-          db.run(`INSERT or IGNORE INTO groupe (nom_groupe) VALUES (?), (?)`, [groupe1,groupe2] , function(err) {
+          db.run(`INSERT or IGNORE INTO groupe (nom_groupe) VALUES (?),(?),(?),(?)`, [groupe1,groupe2, groupe3, groupe4] , function(err) {
             if (!err) {
               const groupId = this.lastID;
             }
@@ -134,11 +136,40 @@ db.serialize(() => {
               const moodId = this.lastID;
             }
           });
+
+
+          const inscription = [
+            {
+              id_user: 2,
+              id_groupe: 1,
+              est_responsable: 1
+            },
+            {
+              id_user: 2,
+              id_groupe: 2,
+              est_responsable: 1
+            },
+            {
+              id_user: 2,
+              id_groupe: 3,
+              est_responsable: 1
+
+            }]
+          
           // insérer les inscriptions par défaut
-          db.run(`INSERT or IGNORE INTO inscription (id_user, id_groupe, est_responsable) VALUES (?,?,?), (?,?,?)`, [2, 1, 1, 3, 1, 0], function(err) {
-            if (!err) {
-              const inscriptionId = this.lastID;
-            }
+          db.run('BEGIN TRANSACTION');
+          const stmt = db.prepare(`
+              INSERT OR IGNORE INTO inscription (id_user, id_groupe, est_responsable) VALUES (?,?,?)
+          `);
+          inscription.forEach(inscription => {
+              stmt.run(inscription.id_user, inscription.id_groupe, inscription.est_responsable);
+          });
+          stmt.finalize();
+          db.run('COMMIT', function(err) {
+              if (err) {
+                  console.error(err);
+                  db.run('ROLLBACK');
+              }
           });
         }
       });
