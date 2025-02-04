@@ -17,7 +17,7 @@ class Mood {
                 this.userId,
                 this.date,
                 this.score,
-                this.enAlerte
+                this.enAlerte ? 1 : 0
             ], function(err) {
                 if (err) return reject(err);
                 resolve(this.lastID);
