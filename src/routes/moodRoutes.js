@@ -30,7 +30,7 @@ const auth = require('../middlewares/auth');
  *                 mood:
  *                   type: number
  *                   description: Score d'humeur
- *                 alert:
+ *                 enAlert:
  *                   type: boolean
  *                   description: Etat d'alerte
  *                 date: 

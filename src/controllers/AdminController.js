@@ -76,6 +76,17 @@ class AdminController {
         }
     }
 
+    static async getAllInscriptionsBygroup(req, res, next) {
+        try {
+            if (req.user.role !== 'admin') throw new AppError(403, 'Accès non autorisé');
+            const inscriptions = await Group.getAllInscriptionsByGroup(req.params.id);
+            console.log(req.params.groupId);
+            res.json(inscriptions);
+        } catch (err) {
+            next(err);
+        }
+    }
+
     static async deleteGroup(req, res, next) {
         try {
             if (req.user.role !== 'admin') throw new AppError(403, 'Accès non autorisé');

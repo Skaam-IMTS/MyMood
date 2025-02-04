@@ -15,15 +15,25 @@ class User {
     static async getAllUsers() {
       return new Promise((resolve, reject) => {
           const sql = `
-              SELECT u.*, GROUP_CONCAT(g.nom_groupe) as groupes
+              SELECT u.nom, u.prenom, u.role, u.email, GROUP_CONCAT(g.nom_groupe) as groupes
               FROM user u
               LEFT JOIN inscription i ON u.id_user = i.id_user
               LEFT JOIN groupe g ON i.id_groupe = g.id_groupe
               GROUP BY u.id_user
+              ORDER BY u.role, u.nom 
           `;
           db.all(sql, [], (err, rows) => {
               if (err) return reject(err);
-              resolve(rows);
+              resolve([
+                    rows.map(row => ({
+                        id: row.id_user,
+                        email: row.email,
+                        nom: row.nom,
+                        prenom: row.prenom,
+                        role: row.role,
+                        groupe: row.groupes ? row.groupes.split(',') : []
+                    }))
+              ]);
           });
       });
     }

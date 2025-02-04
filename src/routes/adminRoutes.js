@@ -152,6 +152,7 @@ router.delete('/users/:id', auth, AdminController.deleteUser);
 router.get('/groups', auth, AdminController.getAllGroups);
 router.post('/groups', auth, AdminController.createGroup);
 
+router.get('/groups/:id', auth, AdminController.getAllInscriptionsBygroup);
 /**
  * @swagger
  * /admin/groups/{groupId}/users/{userId}:

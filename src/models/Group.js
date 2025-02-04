@@ -11,6 +11,20 @@ class Group {
         });
     }
 
+    static async getAllInscriptionsByGroup(id_groupe) {
+        return new Promise((resolve, reject) => {
+            db.all(`SELECT u.role, u.nom, u.prenom, u.email, g.nom_groupe
+                    FROM inscription i
+                    JOIN user u ON u.id_user = i.id_user 
+                    JOIN groupe g ON g.id_groupe = i.id_groupe
+                    WHERE id_groupe = ?
+                    ORDER BY u.role DESC`, [id_groupe], (err, rows) => {
+                if (err) return reject(err);
+                resolve(rows);
+            });
+        });
+    }
+
     static async createGroup(nomGroupe) {
         return new Promise((resolve, reject) => {
             db.run(
