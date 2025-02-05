@@ -142,5 +142,5 @@ const buildStudents=(groupX)=>{
 
 // te renvoie dans la page formation list
 btnRetour.addEventListener('click', ()=>{
-    window.location.replace('/formation-list.html');
+    window.location.replace('/superviseur/formation-list.html');
 })
