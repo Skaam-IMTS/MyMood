@@ -13,7 +13,7 @@ let form=document.querySelector('#profil-form');
 
 // Vérifie si tu a le token, sinon il te redirect dans le login
 const redirect=()=>{
-    if(localStorage.getItem('SuperviseurToken')){}
+    if(localStorage.getItem('Token')){}
     else{
         window.location.replace('/index.html')
     }
@@ -29,7 +29,7 @@ const profileFetch=()=>{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
-            'Authorization':`Bearer ${localStorage.getItem('SuperviseurToken')}`,
+            'Authorization':`Bearer ${localStorage.getItem('Token')}`,
         }
     }
     fetch(moodProfileUrl, profileUrlParamGet)
@@ -67,7 +67,7 @@ const recupValeursInputs=(data)=>{
         method:'PUT',
         headers:{
             'Content-Type':'application/json',
-            'Authorization':`Bearer ${localStorage.getItem('SuperviseurToken')}`,
+            'Authorization':`Bearer ${localStorage.getItem('Token')}`,
         },
         body:JSON.stringify(data)
     }

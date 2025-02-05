@@ -6,7 +6,7 @@ let btnValider=document.querySelector('#btn-valider');
 
 // Vérifie si tu a le token, sinon il te redirect dans le login
 const redirect=()=>{
-    if(localStorage.getItem('SuperviseurToken')){}
+    if(localStorage.getItem('Token')){}
     else{
         window.location.replace('/index.html')
     }
@@ -17,7 +17,7 @@ redirect();
 
 // retire le token et retoure à login
 btnValider.addEventListener('click', ()=>{
-    localStorage.removeItem('SuperviseurToken');
+    localStorage.removeItem('Token');
     window.location.reload();
 });
 

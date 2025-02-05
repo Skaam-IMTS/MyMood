@@ -4,7 +4,7 @@ let btnOk=document.querySelector('#btn-ok');
 
 // Vérifie si tu a le token, sinon il te redirect dans le login
 const redirect=()=>{
-    if(localStorage.getItem('SuperviseurToken')){}
+    if(localStorage.getItem('Token')){}
     else{
         window.location.replace('/index.html')
     }

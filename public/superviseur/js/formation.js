@@ -15,7 +15,7 @@ let moodMeterValue=document.getElementById('mood-o-meter-value');
 
 // Vérifie si tu a le token, sinon il te redirect dans le login
 const redirect=()=>{
-    if(localStorage.getItem('SuperviseurToken')){}
+    if(localStorage.getItem('Token')){}
     else{
         window.location.replace('/index.html')
     }
@@ -27,7 +27,7 @@ redirect();
 let initParam={
     method: 'GET',
     headers:{'Content-Type': 'application/json',
-        'Authorization':`Bearer ${localStorage.getItem('SuperviseurToken')}`
+        'Authorization':`Bearer ${localStorage.getItem('Token')}`
     }
 };
 let moodPlainURL=`${moodURL}${moodGroupUrl}${moodIdUrl}${moodFromUrl}`;
@@ -115,7 +115,7 @@ const buildStudents=(groupX)=>{
                 let paramAlert={
                     method:'PUT',
                     headers:{'Content-Type': 'application/json',
-                        'Authorization':`Bearer ${localStorage.getItem('SuperviseurToken')}`
+                        'Authorization':`Bearer ${localStorage.getItem('Token')}`
                     }
                 }
                 fetch(moodAlertUrl, paramAlert)
