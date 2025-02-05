@@ -2,19 +2,19 @@
 /* FONTS */
 @font-face{
     font-family: BDSupperRegular;
-    src: url("../fonts/BDSupperRegular.ttf") format("opentype");
+    src: url("/fonts/BDSupperRegular.ttf") format("opentype");
 }
 @font-face{
     font-family: Cocogoose-Light;
-    src: url("../fonts/Cocogoose\ Pro\ Light-trial.ttf") format("opentype");
+    src: url("/fonts/Cocogoose\ Pro\ Light-trial.ttf") format("opentype");
 }
 @font-face{
     font-family: Magic-Retro;
-    src: url("../fonts/Magic\ Retro.ttf") format("opentype");
+    src: url("/fonts/Magic\ Retro.ttf") format("opentype");
 }
 @font-face{
     font-family: Inter;
-    src: url("../fonts/Inter_28pt-Regular.ttf") format("opentype");
+    src: url("/fonts/Inter_28pt-Regular.ttf") format("opentype");
 }
 
 /* VARIABLES */

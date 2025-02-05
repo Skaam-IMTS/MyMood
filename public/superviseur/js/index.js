@@ -49,7 +49,7 @@ const login=(email, password)=>{
 // si tu a déja le token ca t'ammène à la page liste formation
 const redirectConnect=(data)=>{
     if(localStorage.getItem('SuperviseurToken')){
-        window.location.replace('/formation-list.html')
+        window.location.replace('/superviseur/formation-list.html')
     }
 }
 

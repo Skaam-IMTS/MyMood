@@ -23,5 +23,5 @@ btnValider.addEventListener('click', ()=>{
 
 // retourne dans la dernière page
 btnAnnuler.addEventListener('click', ()=>{
-    window.location.replace('/formation-list.html')
+    window.location.replace('/superviseur/formation-list.html')
 });

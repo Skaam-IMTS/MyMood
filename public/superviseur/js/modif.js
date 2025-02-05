@@ -1,4 +1,4 @@
-
+let btnOk=document.querySelector('#btn-ok');
 
 
 
@@ -10,3 +10,7 @@ const redirect=()=>{
     }
 }
 redirect();
+
+btnOk.addEventListener('click', ()=>{
+    window.location.replace('/superviseur/formation-list.html')
+})

@@ -50,7 +50,7 @@ const makeList=(list)=>{
 
         element.addEventListener('click',()=>{
             localStorage.setItem('groupId', element.id);
-            window.location.replace('/formation.html');
+            window.location.replace('/superviseur/formation.html');
         })
     }
 }

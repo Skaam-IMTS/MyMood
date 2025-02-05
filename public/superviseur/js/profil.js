@@ -78,6 +78,7 @@ const recupValeursInputs=(data)=>{
     .then(
         data=>{
             console.log(data)
+            window.location.replace('/modif.html')
         }
     )
     .catch(
@@ -99,6 +100,6 @@ form.addEventListener('submit', (e)=>{
 
 // retourne dans la dernière page
 btnAnnuler.addEventListener('click', ()=>{
-    window.location.replace('/formation-list.html')
+    window.location.replace('/superviseur/formation-list.html')
 });
 
