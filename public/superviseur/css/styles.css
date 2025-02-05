@@ -1,0 +1,582 @@
+
+/* FONTS */
+@font-face{
+    font-family: BDSupperRegular;
+    src: url("../fonts/BDSupperRegular.ttf") format("opentype");
+}
+@font-face{
+    font-family: Cocogoose-Light;
+    src: url("../fonts/Cocogoose\ Pro\ Light-trial.ttf") format("opentype");
+}
+@font-face{
+    font-family: Magic-Retro;
+    src: url("../fonts/Magic\ Retro.ttf") format("opentype");
+}
+@font-face{
+    font-family: Inter;
+    src: url("../fonts/Inter_28pt-Regular.ttf") format("opentype");
+}
+
+/* VARIABLES */
+:root{
+    --BDSupperRegular: "BDSupperRegular";
+    --Cocogoose-Light: "Cocogoose-Light";
+    --Magic-Retro: "Magic-Retro";
+    --Inter: "Inter";
+
+    --colorFont: #C8C9E5;
+    --colorMain1: #8287C4;
+    --colorMain2: #FFF9FB;
+    --colorMain2bis: #DDDBED;
+    --colorMain3: #acadcdb9;
+    --colorMain4: #37376dcf;
+    --colorBtn1: #4B5090;
+    --colorText1: #37376D;
+    --colorRank1: #FF5E5E;
+    --colorRank5: #5EFF6E;
+    --colorAlert: #F96060;
+    --colorAlert2: #b84b5d;
+    --colorBar: #332e35;
+}
+
+/* GENERAL */
+*{
+    padding: 0;
+    margin: 0;
+    font-weight: 100;
+}
+body{
+    background-color: var(--colorFont);
+    min-height: 100vh;
+}
+
+/*----------------------- NAV --------------------------*/
+nav{
+    display: flex;
+    flex-direction: row;
+    padding: 15px 15px 5px 30px;
+    margin-bottom: 3%;
+}
+#nav-formation{
+    margin-bottom: 0;
+}
+#nav-button{
+    height: auto;
+    width: auto;
+    padding: 15px 40px;
+
+    text-decoration: none;
+    border-style:none;
+    border-radius: 10px;
+
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+
+/* ----------------------------- MAIN ---------------------------------- */
+main{
+    margin: auto 100px;
+}
+
+.logo-big{
+    margin-bottom: 30px;
+    margin-top: 4vw;
+}
+
+/* TEXTS */
+.title{
+    text-align: center;
+}
+.split-color::before{
+    content: "FORMATION ";
+    color: var(--colorMain4);
+}
+.split-color::after{
+    content: " BACK_END";
+    color: var(--colorMain2);
+}
+.h1{
+    font-size: 7rem;
+    height: auto;
+}
+.h2{
+    font-size: 4.3rem;
+    height: calc(100% - 30px);
+}
+.h3{
+    font-size: 2rem;
+}
+.h4{
+    font-size: 1.5rem;
+}
+.h5{
+    font-size: 1rem;
+}
+.a{
+    font-size: 0.9rem;
+}
+.label{
+    color: var(--colorMain2bis);
+}
+.loginLabel{
+    margin-top: 10px;
+}
+
+/* TEXTS P */
+.p{
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* FIELDSETS */
+.fs{
+    border-radius: 10px;
+    border-style: none;
+    background-color: var(--colorMain1);
+}
+.modif{
+    margin-top: 8vh;
+}
+.formation{
+    margin-top: 0;
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: var(--colorMain3);
+
+    height: fit-content;
+    width: fit-content;
+}
+.alertField{
+    margin-top: 2vw;
+    padding: 30px;
+    background-color: var(--colorMain3);
+
+    height: fit-content;
+    width: fit-content;
+}
+
+/* LEGENDS */
+.legend{
+    margin: 0 auto;
+}
+
+/* INPUTS */
+.login-inputs{
+    gap: 15px;
+
+    padding: 35px;
+    padding-top: 10px;
+}
+.input{
+    margin: 0 1vw;
+    padding: 15px 2vw;
+    
+    height: 2vw;
+    width: 230px;
+
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: var(--colorMain4);
+}
+
+
+/* BUTTONS */
+.btn-container{
+    gap: 20px;
+}
+.button{
+    height: auto;
+    width: auto;
+    padding: 10px 40px;
+
+    border-style: solid;
+    border-radius: 15px;
+    border-width: 0.5px;
+
+    position: relative; 
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.button:hover{
+    cursor:pointer;
+}
+.main-button{
+    border-color: var(--colorBtn1);
+    bottom: 17px;
+}
+.btn-retour{
+    margin-bottom: 2vw;
+    margin-top: 2vw;
+    margin-left: 3vw;
+
+    align-self: flex-start;
+    gap: 5px;
+
+    background-color: var(--colorMain3);
+    padding: 1vw 2vw;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px, rgba(0, 0, 0, 0.1) 0px 3px 6px -1px, rgba(0, 0, 0, 0.1) 0px -2px 0px inset;
+}
+.btn-retour:hover{
+    cursor:pointer;
+}
+.alert-done{
+    width: fit-content;
+    height: auto;
+    padding: 1vw;
+
+    white-space: pre-wrap;
+
+    background-color: var(--colorAlert2);
+
+    border-color: var(--colorAlert);
+    border-width: 4px;
+    border-radius: 10px;
+}
+#btn-connect:hover{
+    cursor: pointer;
+}
+
+.center{
+    padding: 70px;
+    text-align: center;
+}
+
+/* FORMATIONS LISTS */
+#formation-list-container{
+    gap: 1vw;
+    padding: 3vw;
+}
+.formation-element{
+    padding: 1vw 6vw; 
+
+    border-style: none;
+    border-radius: 5px;
+    font-family: var(--Inter);
+}
+.formation-element:hover{
+    background-color: color-mix(in srgb, var(--colorMain2) 90%, rgb(0, 0, 0) 10%);
+    cursor: pointer;
+}
+
+/* IMAGES */
+.icon{
+    width: 10px;
+    height: auto;
+}
+.image{
+    object-fit: contain;
+}
+#btn-retour-icon{
+    transform:rotateZ(180deg)
+}
+
+
+.formation-container{
+    gap: 10%;
+}
+#students-container{
+    display:grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-items: stretch;
+}
+.alerts-container{
+    padding: 10px;
+    gap: 20px;
+}
+.alerted{
+    border-style:dashed;
+    border-width: 4px;
+    border-color: var(--colorAlert);
+}
+#alert-student-container{
+    gap: 2vw;
+}
+.exemple-student{
+    border-radius: 8px;
+    width: auto;
+    padding: 10px 20px;
+
+    gap: 20px;
+
+    text-align: center;
+}
+.student-name{
+    max-width: 80px;
+    text-align: center;
+}
+.student-mood{
+    background-color: lightsalmon;
+    border-radius: 150px;
+
+    width: 50px;
+
+    font-size: 1.5rem;
+    font-family: var(--Inter);
+}
+.moyenne-classe{
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+}
+#mood-o-meter-container{
+    margin-top: 1vw;
+    gap: 2vw;
+}
+#mood-o-meter-value{
+    width: 50px;
+
+    background-color: var(--colorMain2bis);
+
+    font-size: 1.2rem;
+
+    border-radius: 100px;
+}
+.mood-font{
+    background-color: var(--colorMain2bis);
+
+    width: 80%;
+
+    border-radius: 100px;
+}
+.mood-bar{
+    appearance: none;
+
+    width: 90%;
+    height: 50%;
+
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--colorRank5) 0%, var(--colorRank1) 100%);
+}
+.mood-bar::-webkit-slider-thumb{
+    appearance: none;
+
+    position: relative;
+    width: 20px;
+    height: 40px;
+
+    background-color: var(--colorBar);
+    cursor: pointer;
+
+    outline-style: solid;
+    outline-width: 5px;
+    outline-color: var(--colorMain2bis);
+    border-radius: 10px;
+}
+#mood-meter-landmark{
+    object-fit: contain;
+
+    width: fit-content;
+    height: fit-content;
+
+    position:relative;
+}
+
+div[name="prflLablContnr"]{
+    flex-wrap: nowrap;
+}
+div[name="prflLablContnr"] label{
+    width: 40%;
+    text-align: center;
+}
+
+/* --------------------------------------- FOOTER --------------------------------------------- */
+footer{
+    margin-top: auto;
+}
+
+
+
+
+/* COLORS */
+.colorB2{
+    background-color: var(--colorMain2);
+}
+.color2{
+    color: var(--colorMain2);
+}
+.colorB4{
+    background-color: var(--colorMain4);
+}
+.color4{
+    color: var(--colorMain4);
+}
+.colorBBT1{
+    background-color: var(--colorBtn1);
+}
+.colorTXT1{
+    color: var(--colorText1);
+}
+
+/* FONTS */
+.BDSuppR{
+    font-family: var(--BDSupperRegular);
+}
+.CocoGL{
+    font-family: var(--Cocogoose-Light);
+}
+.MagRetr{
+    font-family: var(--Magic-Retro);
+}
+
+/* FLEX */
+.fr{
+    display: flex;
+    flex-direction: row;
+}
+.fc{
+    display: flex;
+    flex-direction: column;
+}
+.fww{
+    flex-wrap: wrap;
+}
+.aifs{
+    align-items: flex-start;
+}
+.aic{
+    align-items: center;
+}
+.aife{
+    align-items: flex-end;
+}
+.jcc{
+    justify-content: center;
+}
+.jcsb{
+    justify-content: space-between;
+}
+.jcse{
+    justify-content: space-evenly;
+}
+.jcsa{
+    justify-content: space-around;
+}
+
+.grJcAc{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SIZE */
+.width100prc{
+    width: 100%;
+}
+.height50px{
+    height: 50px;
+}
+
+
+
+@media (max-width: 800px){
+    /* body{
+        background-color: rgb(196, 170, 185);
+    } */
+    .h1{
+        font-size: 5rem;
+        line-height: 80px;
+    }
+    .h3{
+        font-size:5.25vmin;
+    }
+    .h4{
+        margin-top: 5vw;
+    }
+
+    .login-inputs{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .login-inputs .input{
+        height: 5vw;
+        width: 80vw
+    }
+
+    .profilContainer .input{
+        width: 40vw;
+    }
+    
+    .main-button{
+        height: 80px;
+        width: 70vw;
+        font-size: 1.1rem;
+        padding: 0;
+        bottom: 0;
+    }
+    .btn-container{
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5vw;
+        margin-bottom: 5vw;
+    }
+
+    .deconnect-div{
+        padding: 10px;
+    }
+    .deconnect-div p{
+        font-size: 1.2rem;
+        width: 80vw;
+        height: 30vw;
+
+        display:grid;
+        align-items: center;
+    }
+
+    .formation-list-container{
+        gap: 2vw;
+    }
+    .formation-element{
+        height: auto;
+        width: 60vw;
+        font-size: 0.9rem;
+        padding: 3vw;
+    }
+
+    .btn-retour{
+        align-self: center;
+        margin: 8vw 0;
+        transform: scale(1.6);
+        background-color: var(--colorMain3);
+        padding: 2vw 3vw;
+        border-radius: 7px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px, rgba(0, 0, 0, 0.1) 0px 3px 6px -1px, rgba(0, 0, 0, 0.1) 0px -2px 0px inset;
+    }
+    .split-color{
+        text-align: center;
+    }
+    #moyenne-classe{
+        margin-top: 5vw;
+        margin-bottom: 3vw;
+        font-size: 5vmin;
+    }
+    #students-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px){
+    nav{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10vw;
+
+        padding: 5vw 0 5vw 0;
+    }
+    #navBtnContain{
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+    }
+
+    #mood-o-meter-container{
+        flex-direction: column;
+    }
+}
