@@ -17,18 +17,19 @@ class UserController {
           next(err);
       }
   }
-    static async updateProfile(req, res, next) {
-      try {
-        const user = await User.findByEmail(req.user.email);
-        if (!user) {
-          throw new AppError(404, "Utilisateur introuvable");
-        }
-        await user.updateProfile(req.body);
-        res.json({message: "Profil mis à jour"});
-      } catch(err) {
-        next(err);
+  
+  static async updateProfile(req, res, next) {
+    try {
+      const user = await User.findByEmail(req.user.email);
+      if (!user) {
+        throw new AppError(404, "Utilisateur introuvable");
       }
+      await user.updateProfile(req.body);
+      res.json({message: "Profil mis à jour"});
+    } catch(err) {
+      next(err);
     }
+  }
 }
 
 module.exports = UserController;

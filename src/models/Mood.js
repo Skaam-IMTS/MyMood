@@ -2,11 +2,11 @@ const db = require('../../database/database');
 const config = require('../config/config');
 
 class Mood {
-    constructor(userId, score, enAlerte) {
-        this.userId = userId;
-        this.score = score;
-        this.enAlerte = enAlerte;
-        this.date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
+    constructor({ id_user, score, en_alerte, date }) {
+        this.id_user = id_user ;
+        this.score = score || 0;
+        this.en_alerte = en_alerte || 0;
+        this.date = date || new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
     }
   
     async save() {
@@ -14,10 +14,10 @@ class Mood {
             const sql = `INSERT INTO mood (id_user, update_date, score, en_alerte) 
                         VALUES (?, ?, ?, ?)`;
             db.run(sql, [
-                this.userId,
+                this.id_user,
                 this.date,
                 this.score,
-                this.enAlerte ? 1 : 0
+                this.en_alerte ? 1 : 0
             ], function(err) {
                 if (err) return reject(err);
                 resolve(this.lastID);
@@ -33,11 +33,7 @@ class Mood {
                 (err, row) => {
                     if (err) return reject(err);
                     if (!row) return resolve(null);
-                    return resolve({
-                        score: row.score,
-                        enAlerte: row.en_alerte,
-                        date: row.update_date
-                    });
+                    return resolve(new Mood(row));
                 }
             );
         });

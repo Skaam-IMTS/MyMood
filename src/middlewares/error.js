@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Custom Error class
 class AppError extends Error {
     constructor(statusCode, message) {

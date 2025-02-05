@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const config = require('../config/config');
 const User = require('../models/User');
+const PasswordHandler = require('../utils/password');
 
 class AuthService {
     static async login(email, password) {
@@ -10,7 +10,7 @@ class AuthService {
             throw new Error('Utilisateur non trouvé');
         }
 
-        const validPassword = await bcrypt.compare(password, user.password);
+        const validPassword = await PasswordHandler.comparePasswords(password, user.password);
         if (!validPassword) {
             throw new Error('Mot de passe incorrect');
         }

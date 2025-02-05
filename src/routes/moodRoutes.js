@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const MoodController = require('../controllers/MoodController');
-const GroupController = require('../controllers/GroupController');
 const auth = require('../middlewares/auth');
 
 /**
@@ -94,6 +93,6 @@ router.post('/update', auth, MoodController.updateMood);
  *       403:
  *         description: Accès non autorisé
  */
-router.put('/:studentId/reset-alert', auth, GroupController.resetStudentAlert);
+router.put('/:studentId/reset-alert', auth, MoodController.resetStudentAlert);
 
 module.exports = router;

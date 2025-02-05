@@ -4,32 +4,6 @@ const Group = require('../models/Group');
 const User = require('../models/User');
 const mailService = require('../services/MailService');
 
-// exports.mood = (req, res) => {
-//     db.all(`SELECT * FROM mood`, (err, rows) => {
-//         if (err) {
-//             return res.status(500).json({ error: err.message });
-//         }
-//         res.json(rows);
-//     });
-// };
-
-// exports.moodAjout = (req, res) => {
-//     const { newMood, en_alerte, email } = req.body;
-//     const update_date = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });;
-//     const sql = `
-//     INSERT INTO mood (id_user, update_date, newMood, en_alerte)
-//     SELECT id_user , ?, ?, ?
-//     FROM user
-//     WHERE email = ?;
-//             `;
-//     db.run(sql, [update_date, newMood, en_alerte, email], (err) => {
-//         if (err) {
-//             return res.status(500).json({ error: err.message });
-//         }
-//         res.json({ message: 'Mood ajouté avec succès' });
-//     });
-// };
-
 const Mood = require('../models/Mood');
 
 class MoodController {
@@ -71,6 +45,29 @@ class MoodController {
                 );
             }
             res.json({message: "Humeur mise à jour"});
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    static async resetStudentAlert(req, res, next) {
+        try {
+            if (req.user.role !== 'superviseur') {
+                throw new AppError(403, 'Accès non autorisé');
+            }
+
+            const studentId = req.params.studentId;
+            
+            // Vérifie si le superviseur a accès à cet étudiant
+            const hasAccess = await Group.supervisorHasAccessToStudent(req.user.userId, studentId);
+            if (!hasAccess) {
+                throw new AppError(403, 'Vous n\'avez pas accès à cet étudiant');
+            }
+
+            // Réinitialise l'alerte
+            await Mood.resetAlert(studentId);
+            
+            res.json({ message: 'Alerte réinitialisée avec succès' });
         } catch (err) {
             next(err);
         }

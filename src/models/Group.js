@@ -1,12 +1,29 @@
 const db = require('../../database/database');
+const User = require('./User');
 
 class Group {
+    constructor(groupData) {
+        this.id = groupData.id_groupe || null;
+        this.nom_groupe = groupData.nom_groupe || '';
+        this.users = groupData.users || [];
+        this.responsables = groupData.responsables || [];
+    }
 
     static async getAllGroups() {
         return new Promise((resolve, reject) => {
             db.all('SELECT * FROM groupe', [], (err, rows) => {
                 if (err) return reject(err);
                 resolve(rows);
+            });
+        });
+    }
+
+    static async getGroupById(id) {
+        return new Promise((resolve, reject) => {
+            db.get('SELECT * FROM groupe WHERE id_groupe = ?', [id], (err, row) => {
+                if (err) return reject(err);
+                if (!row) return resolve(null);
+                resolve(new Group(row));
             });
         });
     }
@@ -25,11 +42,11 @@ class Group {
         });
     }
 
-    static async createGroup(nomGroupe) {
+    async createGroup() {
         return new Promise((resolve, reject) => {
             db.run(
                 'INSERT INTO groupe (nom_groupe) VALUES (?)',
-                [nomGroupe],
+                [this.nom_groupe],
                 function(err) {
                     if (err) return reject(err);
                     resolve(this.lastID);
@@ -38,47 +55,11 @@ class Group {
         });
     }
 
-    static async updateInscription(groupId, userId) {
-        // Vérifier si l'utilisateur est déjà inscrit
-        const inscription = await new Promise((resolve, reject) => {
-            db.get(
-                'SELECT * FROM inscription WHERE id_groupe = ? AND id_user = ?',
-                [groupId, userId],
-                (err, row) => {
-                    if (err) return reject(err);
-                    resolve(row);
-                }
-            );
-        });
-
-        // Vérifier si l'utilisateur est un superviseur
-        const estResponsable = await new Promise((resolve, reject) => {
-            db.get(
-                'SELECT * FROM inscription WHERE id_groupe = ? AND id_user = ? AND est_responsable = 1',
-                [groupId, userId],
-                (err, row) => {
-                    if (err) return reject(err);
-                    resolve(row ? 1 : 0);
-                }
-            );
-        }); 
-
+    async deleteGroup() {
         return new Promise((resolve, reject) => {
-            db.run(
-                'INSERT OR REPLACE INTO inscription (id_groupe, id_user, est_responsable) VALUES (?, ?, ?)',
-                [groupId, userId, estResponsable],
-                function(err) {
-                    if (err) return reject(err);
-                    resolve(this.lastID);
-                }
-            );
-        });
-    }
-
-    static async deleteGroup(groupId) {
-        return new Promise((resolve, reject) => {
-            db.run('DELETE FROM groupe WHERE id_groupe = ?', [groupId], function(err) {
+            db.run('DELETE FROM groupe WHERE id_groupe = ?', [this.id], function(err) {
                 if (err) return reject(err);
+                
                 resolve(this.changes);
             });
         });
@@ -158,6 +139,8 @@ class Group {
             });
         });
     }
+
+    
 }
 
 module.exports = Group;
