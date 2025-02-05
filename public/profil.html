@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/profil.js" defer></script>
+    <title>MyMood app - Profile</title>
+</head> 
+
+<body class="fc">
+    <nav class="colorB4 jcsb fww">
+        <div class="logo-small">
+            <h2 class="title color2 h2 MagRetr">My Mood</h2>
+            <h5 class="title color2 h5 BDSuppR">Comment tu te sens aujourd'hui ?</h5>
+        </div>
+        <div class="fc jcse aife" id="navBtnContain">
+            <a class="color4 colorB2 CocoGL" id="nav-button" href="./profil.html" action="#">Mon Profil</a>
+            <a class="colorB4 color2 CocoGL" id="nav-button" href="./deconnect.html" action="#">Déconnexion</a>
+        </div>
+    </nav>
+
+    <main class="fc aic">
+
+        <form id="profil-form" action="#" method="">
+        <fieldset class="profil fs">
+            <legend class="legend"><h3 class="title color2 h3 BDSuppR">PROFIL</h3></legend>
+            <div class="login-inputs fc aic">
+
+                <div class="profilContainer fr aic jcsb width100prc" id="name-Modif-Container" name="prflLablContnr">
+                <label for="nameModif" class="label BDSuppR" id="label-nameModif">Nom : </label>
+                <input class="input input-nom colorB2 colorTXT1 CocoGL" id="nameModif" name="nameModif" type="text" minlength="1" placeholder="Nom">
+                </div>
+
+                <div class="profilContainer fr aic jcsb width100prc" id="firstName-Modif-Container" name="prflLablContnr">
+                <label for="firstNameModif" class="label BDSuppR" id="label-firstNameModif">Prénom : </label>
+                <input class="input input-mdp colorB2 colorTXT1 CocoGL" id="firstNameModif" name="firstNameModif" type="text" minlength="1" placeholder="Prénom">
+                </div>
+
+                <div class="profilContainer fr aic jcsb width100prc" id="email-Modif-Container" name="prflLablContnr">
+                <label for="emailModif" class="label BDSuppR" id="label-emailModif">Adresse Mail : </label>
+                <input class="input input-mail colorB2 colorTXT1 CocoGL" id="emailModif" name="emailModif" type="email" placeholder="mail@institutsolacroup.com">
+                </div>
+
+                <div class="profilContainer fr aic jcsb width100prc" id="nouv-mdp-Modif-Container" name="prflLablContnr">
+                <label for="nouvMdpModif" class="label BDSuppR" id="label-nouvMdpModif">Nouveau mot de passe : </label>
+                <input class="input input-nouv-mdp colorB2 colorTXT1 CocoGL" id="nouvMdpModif" name="nouvMdpModif" type="password" minlength="8" autocomplete="new-password" placeholder="Nouveau mot de passe" required>
+                </div>
+
+            </div>
+        </fieldset>
+        <div class="btn-container fr jcc">
+            <button class="button main-button colorBBT1 color2 CocoGL" id="btn-annuler">Annuler</button>
+            <input type="submit" value="Valider" class="button main-button colorBBT1 color2 CocoGL" id="btn-submit">
+        </div>
+        </form>
+        
+    </main>
+
+    <footer class="width100prc height50px colorB4">
+
+    </footer>
+</body>
+
+</html>

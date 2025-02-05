@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/formation.js" defer></script>
+    <title>MyMood app - Formation [Back-End]</title>
+</head> 
+
+<body class="fc" id="" name="groupBody">
+    <nav id="nav-formation" class="colorB4 jcsb fww">
+        <div class="logo-small">
+            <h2 class="title h2 color2 MagRetr">My Mood</h2>
+            <h5 class="title h5 color2 BDSuppR">Comment tu te sens aujourd'hui ?</h5>
+        </div>
+        <div class="fc jcse aife" id="navBtnContain">
+            <a class="color4 colorB2 CocoGL" id="nav-button" href="./profil.html" action="#">Mon Profil</a>
+            <a class="colorB4 color2 CocoGL" id="nav-button" href="./deconnect.html" action="#">Déconnexion</a>
+        </div>
+    </nav>
+    
+    <main id="align-top" class="fc aic">
+        <span class="btn-retour fr jcc aic" id="btn-retour">
+            <img class="image icon" id="btn-retour-icon" src="./img/fleche-petite.png">
+            <small class="color4 BDSuppR">RETOUR</small>
+        </span>
+
+        <div class="formation-container width100prc fr jcc aifs fww">
+
+            <div class="fc aic">
+                <h3 class="h3 split-color BDSuppR"></h3>
+                <fieldset class="alertField fs">
+                    <div class="alerts-container fc jcc aic" id="alertContainer">
+
+                    </div>
+
+                </fieldset>
+
+                <div class="moyenne-classe width100prc">
+                    <h4 class="title h4 BDSuppR colorTXT1" id="moyenne-classe">MOYENNE DE LA CLASSE</h4>
+                    <div id="mood-o-meter-container" class="fr jcc aic">
+                        <div name="MoodMeter" class="mood-meter mood-font height50px fc jcc aic">
+                            <input type="range" class="mood-meter mood-bar" min="0" max="100" step="5"></input>
+                        </div>
+                        <label for="MoodMeter" class="height50px grJcAc color4 BDSuppR" id="mood-o-meter-value">XX</label>
+                    </div>
+                </div>
+            </div>
+
+        <fieldset class="formation fs">
+            <div id="students-container">
+                
+            </div>
+        </fieldset>
+        
+        </div>
+    </main>
+
+    <footer class="width100prc height50px colorB4">
+
+    </footer>
+</body>
+
+</html>
