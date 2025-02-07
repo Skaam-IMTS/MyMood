@@ -44,8 +44,8 @@ Superviseur :
 - password : superpass
   
 Stagiaire : 
-- email : j.Doe@mymood.fr
-- password : etudpass
+- email : m.smith@mymood.fr
+- password : stagpass
 
 # Mail
 Les mails seront interceptés par Maildev.

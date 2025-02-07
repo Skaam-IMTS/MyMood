@@ -4,10 +4,10 @@ const User = require('../models/User');
 const PasswordHandler = require('../utils/password');
 
 class AuthService {
-    static async login(email, password) {
+    static async login( email, password) {
         const user = await User.findByEmail(email);
         if (!user) {
-            throw new Error('Utilisateur non trouvé');
+            throw new Error('l\'utilisateur n\'existe pas');
         }
 
         const validPassword = await PasswordHandler.comparePasswords(password, user.password);
@@ -16,7 +16,7 @@ class AuthService {
         }
 
         const token = jwt.sign(
-            { userId: user.id, email: user.email, role: user.role },
+            { userId: user.id_user, email: user.email, role: user.role },
             config.jwt.secret,
             { expiresIn: config.jwt.expiresIn }
         );

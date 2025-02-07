@@ -8,10 +8,7 @@ let groupBody=document.getElementsByName('groupBody');
 
 // Vérifie si tu a le token, sinon il te redirect dans le login
 const redirect2=()=>{
-    if(localStorage.getItem('SuperviseurToken')){}
-    else{
-        window.location.replace('/index.html')
-    }
+    localStorage.getItem('Token')?null:window.location.replace('/index.html');
 }
 redirect2();
 
@@ -20,7 +17,7 @@ redirect2();
 let initParam2={
     method: 'GET',
     headers:{'Content-Type': 'application/json',
-        'Authorization':`Bearer ${localStorage.getItem('SuperviseurToken')}`
+        'Authorization':`Bearer ${localStorage.getItem('Token')}`
     }
 };
 fetch(listURL, initParam2)
@@ -34,7 +31,12 @@ fetch(listURL, initParam2)
     }
 )
 .catch(
-    error=>console.log(error)
+    error=>{
+        console.log(error)
+        if (error.status==401){
+            window.location.replace('/index.html');
+        }
+    }
 )
 
 

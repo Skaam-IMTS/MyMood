@@ -38,7 +38,7 @@ class Role {
         });
     }
 
-    async updateRole(id, role) {
+    async updateRole(role) {
         return new Promise((resolve, reject) => {
             db.run(
                 'UPDATE role SET role = ? WHERE role = ?',

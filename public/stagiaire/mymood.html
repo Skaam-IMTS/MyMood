@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyMood</title>
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/mymood.js" defer></script>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div>
+            <h1>My Mood</h1>
+            <h3>Comment te sens-tu aujourd'hui?</h3>
+        </div>
+
+        <div>
+            <button type="button" class="btn-profil"><a href="../profil.html">Mon profil</a></button>
+            <button type="button" class="btn-deconnexion"><a href="../deconnect.html">Déconnexion</a></button>
+        </div>
+
+    </nav>
+
+    <main>
+
+        <form id="myForm1">
+
+            <div class="slider">
+
+                <div class="top">
+                    <p>Plutôt bien</p>
+                    <p>J'ai connu mieux</p>
+                </div>
+
+                <div class="slider1">
+                    <p>Tout est OK !</p>
+
+                    <div class="white">
+                        
+                     
+                        <!-- <div class="slider2">
+
+                        </div> -->
+                        <!-- <div class="cursor-mood"> -->
+                            <!-- <div id="mood-o-meter-container" class="fr jcc aic"> -->
+                                <div name="MoodMeter" class="cursor-mood mood-meter mood-font height50px fc jcc aic">
+                                    <input type="range" class="mood-meter mood-bar" min="0" max="100" step="5"></input>
+                                </div>
+                            <!-- </div> -->
+                        <!-- </div> -->
+
+                    </div>
+
+                    <p>Je me sens mal</p>
+
+                </div>
+
+                <p>Ça peut aller</p>
+
+            </div>
+
+            <div class="btn-appel-valider">
+
+                <div class="btn-appel">
+                    <button type="button" id="btn-appel">Appel</button>
+                </div>
+
+                <button type="button" class="btn-valider-mood" id="btn-valider-mood">Valider mon Mood</button>
+
+            </div>
+
+        </form>
+
+        <form id="myForm1">
+
+            <div class="text-mood">
+                <p>Cet outil est conçu pour vous permettre de communiquer votre Mood. </p>
+                <p>Grace à ce Mood, nous savons si vous allez bien ou si vous avez besoin d'aide.
+                    En cas de besoin vous pouvez appuyer sur le bouton d'appel.
+                    Cela enverra une notification à votre formateur ainsi qu'a la médiation. </p>
+                <p>En cas d'urgence, manifestez vous auprès de la personne de l'équipe la plus proche</p>
+            </div>
+
+            <div class="mobile-background">
+
+                <div class="mobile-btn-appel">
+                    <button type="button" id="btn-appel">Appel</button>
+                </div>
+
+                <div class="mobile-white">
+
+                    <div class="mobile-p">
+                        <p>Je me sens mal</p>
+                        <p>Ça peut aller</p>
+                        <p>Tout est OK !</p>
+                    </div>
+
+                    <div class="mobile-slider">
+
+                        <div class="mobile-cursor" id="mood">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="alertez-nous">N'hésite pas à nous alerter!</p>
+
+        </form>
+
+        <form class="form2" id="myForm2">
+
+            <div class="notification">
+                <p>Voulez-vous envoyer une notification à vos formateurs ?</p>
+
+                <div id="selectField" class="select-field">
+                    <p id="selectText">Quel formateur.trice</p>
+                    <img src="./img/Group 2.png" alt="Arrow">
+                </div>
+
+                <ul id="list" class="hide">
+                    <li class="options">Jeanne</li>
+                    <li class="options">Lynda</li>
+                    <li class="options">Pierre</li>
+                    <li class="options">Pierre 2.0</li>
+                    <li class="options">Mo</li>
+                </ul>
+
+            </div>
+
+            <div class="btn">
+
+                <p>Une notification sera également envoyée au responsable formation référant.</p>
+
+                <div class="btn1">
+                    <button type="button" onclick="location.reload()" class="btn-annuler"
+                        id="btn-annuler">Annuler</button>
+                    <button type="button" id="btn-valider" class="btn-valider" id="btnValider">Valider</button>
+                </div>
+
+            </div>
+
+        </form>
+
+        <fieldset class="feedback" id="feedback">
+            <legend>Merci</legend>
+            <p>La notification a bien été envoyée.</p>
+            <button type="button" onclick="location.reload()" class="btn-ok">OK</button>
+        </fieldset>
+
+
+
+    </main>
+
+</body>
+
+<footer>
+
+</footer>
+
+</html>

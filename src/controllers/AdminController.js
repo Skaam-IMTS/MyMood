@@ -57,12 +57,31 @@ class AdminController {
         }
     }
 
+    static async updateUser(req, res, next) {
+        try {
+            if (req.user.role !== 'admin') throw new AppError(403, 'Accès non autorisé');
+            const user = await User.findById(req.params.id);
+            if (!user) throw new AppError(404, 'Utilisateur introuvable');
+
+            const data = req.body;
+            if (data.email && !Validator.validateEmail(data.email)) throw new AppError(400, 'Email invalide');
+            if (data.role && !Role.getRole(data.role)) throw new AppError(400, 'Rôle invalide');
+
+            await user.updateProfile(data);
+            res.json({ message: 'Utilisateur mis à jour' });
+        } catch (err) {
+            next(err);
+        }
+    }
+
     static async deleteUser(req, res, next) {
         try {
             if (req.user.role !== 'admin') throw new AppError(403, 'Accès non autorisé');
             if (req.user.id === req.params.id) throw new AppError(400, 'Vous ne pouvez pas supprimer votre propre compte');
+
             if (!await User.findById(req.params.id)) throw new AppError(404, 'Utilisateur introuvable');
             await User.deleteUser(req.params.id);
+            
             res.json({ message: 'Utilisateur supprimé' });
         } catch (err) {
             next(err);

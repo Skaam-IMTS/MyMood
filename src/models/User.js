@@ -6,7 +6,7 @@ const PasswordHandler = require('../utils/password');
 
 class User {
     constructor(userData) {
-        this.id = userData.id;
+        this.id_user = userData.id_user;
         this.email = userData.email;
         this.password = userData.password;
         this.role = userData.role;
@@ -130,7 +130,7 @@ class User {
 
         if (updates.length === 0) return;
 
-        values.push(this.id);
+        values.push(this.id_user);
         const sql = `UPDATE user SET ${updates.join(', ')} WHERE id_user = ?`;
 
         return new Promise((resolve, reject) => {

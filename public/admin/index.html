@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./style.css">
+     <script src="./liste-formations.js" defer> </script>
+     <title>MyMood app - Comment tu te sens aujourd'hui? - liste des formations</title>
+</head>
+
+<body>
+     <header>
+          <nav id="navbar">
+                          <hgroup id="logo"> <h1> MyMood</h1>
+                              <span>Comment tu te sens aujourd'hui?</span>
+                         </hgroup>
+                    
+                    <input type="button" name="profil" id="profilBtn" value="Profil">
+                    <input type="button" name="logout" id="logoutBtn" value="Déconnexion">
+          </nav>
+     </header>     
+
+     <main>
+               <section id="coursesList_container">
+                    <h2 id="coursesList_title"> Les formations</h2>
+                         <ul id="coursesList_ul">
+                              <li class="btns-courses coursesList_li"> <input type="button" name="front" id="btn-front" value="Formation Front-End"> </li>
+                              <li class="btns-courses coursesList_li"> <input type="button" name="back" id="btn-back" value="Formation Back-End"> </li>
+                              <li class="btns-courses coursesList_li"> <input type="button" name="cda" id="btn-cda" value="Formation CDA"> </li>
+                              <li class="btns-courses coursesList_li"><input type="button" name="prepanum1" id="btn-pn1" value="Prépa Numérique 1"> </li>
+                              <li class="btns-courses coursesList_li"><input type="button" name="prepanum2" id="btn-pn2" value="Prépa Numérique 2"> </li>
+                              <li class="btns-courses coursesList_li"><input type="button" name="poa" id="btn-poa" value="POA"> </li>
+                              <li class="btns-courses coursesList_li"><input type="button" name="temporary" id="btn-temporary" value="Groupe temporaire"> </li>
+                         </ul>
+               </section>
+                    <a href="./gestion.html" id="access-management"> Gestion des groupes et stagiaires</a>
+     </main>
+</body>
+</html>

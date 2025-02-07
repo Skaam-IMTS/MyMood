@@ -2,9 +2,8 @@ const db = require('../../database/database');
 const { AppError } = require('../middlewares/error');
 const Group = require('../models/Group');
 const User = require('../models/User');
-const mailService = require('../services/MailService');
-
 const Mood = require('../models/Mood');
+const MailService = require('../services/MailService');
 
 class MoodController {
     static async getStatus(req, res, next) {
@@ -25,7 +24,11 @@ class MoodController {
             if (newMood < 0 || newMood > 100) {
                 throw new AppError(400, 'Le newMood doit être entre 0 et 100');
             }
-            const mood = new Mood(req.user.userId, newMood, enAlerte);
+            const mood = new Mood({
+                id_user: req.user.userId, 
+                score: newMood, 
+                en_alerte: enAlerte }
+            );
             await mood.save();
             if (enAlerte) {
                 // Récupérer les informations de l'étudiant
@@ -35,11 +38,12 @@ class MoodController {
                 const supervisors = await Group.getSupervisorsForStudent(req.user.userId);
 
                 // Envoyer l'email d'alerte aux superviseurs
-                await mailService.sendAlertNotification(
+                await MailService.sendAlertNotification(
                     {
                         nom: student.nom,
                         prenom: student.prenom,
-                        mood: mood.score
+                        score: mood.score,
+                        email: student.email
                     },
                     supervisors
                 );
@@ -57,7 +61,6 @@ class MoodController {
             }
 
             const studentId = req.params.studentId;
-            
             // Vérifie si le superviseur a accès à cet étudiant
             const hasAccess = await Group.supervisorHasAccessToStudent(req.user.userId, studentId);
             if (!hasAccess) {

@@ -1,6 +1,6 @@
 const { AppError } = require('../middlewares/error');
 const Group = require('../models/Group');
-const Mood = require('../models/Mood');
+const User = require('../models/User');
 
 class GroupController {
     static async getSupervisorGroups(req, res, next) {
@@ -8,7 +8,8 @@ class GroupController {
             if (req.user.role !== 'superviseur') {
                 throw new AppError(403, 'Accès non autorisé');
             }
-            const groups = await Group.findBySupervisorId(req.user.userId);
+            const user = await User.findByEmail(req.user.email);
+            const groups = await Group.findBySupervisorId(user.id_user);
             res.json(groups);
         } catch (err) {
             next(err);

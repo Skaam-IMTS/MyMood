@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyMood - Login</title>
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/profil.js" defer></script>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div>
+            <h1>My Mood</h1>
+            <h3>Comment te sens-tu aujourd'hui?</h3>
+        </div>
+
+        <div>
+            <button type="button" class="btn-profil-page">Mon profil</button>
+            <button type="button" class="btn-deconnexion"><a href="deconnexion.html">Déconnexion</a></button>
+        </div>
+
+    </nav>
+
+    <main>
+
+        <form id="profil1">
+
+            <fieldset class="profil-inputs">
+                <legend>PROFIL</legend>
+                <input type="text" placeholder="Nom">
+                <input type="text" placeholder="Adress mail">
+                <input type="text" placeholder="Nouveau mot de passe">
+                <input type="text" placeholder="Confirmer nouveau mot de passe">
+
+                <div class="recaptcha">
+                    <input type="checkbox">
+                    <p>I'm not a robot</p>
+                    <img src="./img/Frame.png" alt="reCAPTCHA">
+                </div>
+
+                <div class="legend-bottom">
+                    <button type="button" onclick="history.back()" class="btn-annuler">Retour</button>
+                    <button type="button" id="btn-valider-profil" class="btn-valider">Valider</button>
+                </div>
+
+            </fieldset>
+
+            <div class="btn-annuler-valider">
+                <button type="button" onclick="history.back()" class="btn-annuler">Retour</button>
+                <button type="button" id="btn-valider-profil" class="btn-valider">Valider</button>
+            </div>
+
+        </form>
+
+        <form id="profil2" class="form-profil2">
+            <p>Votre profil a bien été modifié.</p>
+
+            <div>
+                <button type="button" onclick="location.reload()" class="btn-profil-ok">OK</button>
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+
+<footer>
+
+</footer>
+
+</html>

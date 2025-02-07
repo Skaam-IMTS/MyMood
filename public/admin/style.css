@@ -1,0 +1,628 @@
+:root{
+     /* COLORS */
+     --TexteClaire:#FFF9FB;
+     --TexteFoncé: #37376D;
+
+     --Nav:#545485;
+     --Background:#C8C9E5;
+     --Buttons:#4B5090;
+     --Buttons2:#37366E;
+     --Btn-profil:#7F7FA3;
+     --Btn-deco:#37376D;
+     --Container:#898EC7;
+     --Container2:#393960;
+     --Container-mood:#ACADCD;
+
+     --Dot-Score:#EBADBC;
+
+
+     /* FONTS */
+     --Title:'magic retro';
+     --Body:'bdsupper';
+     --Subtitles:'cocogoose';
+}
+
+@font-face {
+     font-family: 'cocogoose';
+     src: url(/fonts/Cocogoose\ Pro\ Light-trial.ttf);
+}
+@font-face {
+     font-family: 'bdsupper';
+     src: url(/fonts/BDSupperRegular.ttf);
+}
+@font-face {
+     font-family:'magic retro';
+     src: url(/fonts/Magic\ Retro.ttf);
+}
+
+/* GENERAL */
+
+*{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-size: 15px;
+}
+
+body{
+     background-color: var(--Background);
+     color: var(--TexteFoncé);
+     font-size: 15px;
+}
+
+header, footer{
+     background-color: var(--Nav);
+     color: var(--TexteClaire);
+     padding: 2.5vh 2vw 1.5vh 5vw;
+}
+
+footer{
+     align-self: flex-end;
+}
+
+main{
+     margin: 4vh auto;
+     align-content: center;
+     justify-items: center;
+}
+
+a{
+     text-transform: uppercase;
+     text-decoration: none;
+     color: var(--TexteClaire);
+}
+
+nav{
+     display: grid;
+     grid-template-columns: 25% 50% 25%;
+     grid-template-rows: 65% 35%;
+     grid-template-areas: 
+     "title . profil"
+     "title . deco";
+}
+
+h1{
+     font-family: var(--Title);
+     font-size: 4rem;
+}
+
+hgroup{
+     grid-area: title;
+}
+
+hgroup span{
+     font-family: var(--Subtitles);
+     font-size: 0.9rem;
+}
+
+#navbar input{
+     padding: 1.65vh 2.5vw;
+     align-self: center;
+     justify-self: center;
+     border-radius: 10px;
+     border: 0.5px solid var(--TexteFoncé);
+     color: var(--TexteClaire);
+     font-family: var(--Subtitles);
+     font-size: 0.9rem;
+     justify-self: flex-end;
+     align-self: flex-end;
+}
+
+#profilBtn{
+     background-color: var(--Btn-profil);
+     grid-area: profil;
+     margin-bottom: 0.7rem;
+}
+
+#logoutBtn{
+     grid-area: deco;
+     background-color: var(--Btn-deco);
+}
+
+.returnBtn{
+     position: absolute;
+     left:2.5vw;
+     color: var(--TexteFoncé);
+     font-family: var(--Body);
+     font-size: 0.9rem;
+}
+
+/* PAGE LOGIN */
+
+
+
+/* PAGE LISTE FORMATIONS */
+
+#coursesList_ul{
+     background-color:var(--Container);
+     color: var(--TexteFoncé);
+     border-radius: 10px;
+     padding: 4.5vh 4vw 4vh 3vw;
+     align-content: center;
+}
+
+#coursesList_title{
+     font-family: var(--Body);
+     color: var(--TexteClaire);
+     text-transform: uppercase;
+     font-size: 1.75rem;
+     text-align: center;
+}
+
+#coursesList_ul li{
+     list-style: none;
+     justify-items: center;
+     width: 100%;
+     margin: 0.5rem;
+}
+
+#coursesList_container input{
+     padding: 1.75vh 5vw;
+     width: 100%;
+     border: 0.5px solid var(--Buttons2);
+     border-radius: 5px;
+     text-transform: uppercase;
+     font-size: 0.9rem;
+     font-family: var(--Subtitles);
+}
+
+#access-management{
+     background-color: rgb(57, 57, 96, 0.7);
+     color: var(--TexteClaire);
+     font-family: var(--Subtitles);
+     font-size: 0.85rem;
+     padding: 2vh 2vw;
+     border-radius: 10px;
+}
+
+/* PAGE FORMATION [X] */
+
+#course_data{
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: flex-end;
+     align-items: center;
+     gap: 6vw;
+     padding: 6vh 5vw 2vh;
+}
+
+#course_left_container{
+     display: flex;
+     flex-direction: column;
+     flex-wrap: wrap;
+     gap: 9vh;
+     align-items: center;
+     justify-content: center;
+}
+
+.course_name{
+     text-align: center;
+     font-family: var(--Body);
+     font-size: 1.85rem;
+     text-transform: uppercase;
+}
+
+#alerts_container{
+     display: flex;
+     flex-direction: column;
+     gap: 3vh;
+     background-color: var(--Container-mood);
+     border-radius: 10px;
+     padding: 5vh 6vw;
+}
+
+.internMood_box, .internAlert_box{
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: center;
+     background-color: var(--TexteClaire);
+     border-radius: 7.5px;
+     min-width: 190px;
+     padding: 1.5vh 1.5vw;
+}
+
+.internAlert_box{
+     border: 2px dashed rgb(245, 105, 105);
+}
+
+.internMood_name, .internAlert_name{
+     font-family: var(--Subtitles);
+     font-size: 0.8rem;
+     text-align: center;
+}
+
+.internMood_score, .internAlert_score{
+     height: 45px;
+     width: 45px;
+     border-radius: 50%;
+     background-color: var(--Dot-Score);
+     font-family: var(--Body);
+     color: var(--TexteClaire);
+     text-align: center;
+     align-content: center;
+}
+
+#averageMood_title{
+     font-family: var(--Body);
+     font-size: 1.45rem;
+     text-transform: uppercase;
+     color: var(--TexteClaire);
+}
+
+#internsMood_container{
+     background-color: var(--Container-mood);
+     border: none;
+     border-radius: 10px;
+     padding: 4vh 2.5vw 3.5vh;
+
+     display: grid;
+     grid-template-columns:repeat(3, 1fr);
+     grid-template-rows: repeat(5, 1fr);
+     grid-column-gap: 1.5vw;
+     grid-row-gap: 3vh;
+
+     height: 400px;
+     overflow-x: hidden;
+     overflow-y: auto;
+}
+
+::-webkit-scrollbar{
+     width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+     background-color:#9596b6;
+     border-radius: 5px;
+}
+
+/* GESTION DES STAGIAIRES */
+
+#gestion_container{
+     width: 950px;
+     margin: 0 auto;
+     padding: 2vh 2vw;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 4vh;
+}
+
+ul{
+     list-style: none;
+}
+
+.filter_checkboxes{
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+}
+
+.filter_checkboxes label, #internsList label{
+     display: inline-block;
+     position: relative;
+     padding:2vh 2vw 2vh 3.25vw;
+     margin: 1vh;
+     background-color: var(--TexteClaire);
+     color: var(--TexteFoncé);
+     font-family: var(--Subtitles);
+     font-size: 0.75rem;
+     font-weight: 800;
+     text-transform: uppercase;
+     border-radius: 5px;
+     white-space: nowrap;
+     cursor: pointer;
+}
+
+.filter_btns{
+     padding: 2vh 1.5vw;
+     background-color: var(--TexteClaire);
+     color: #A3A9CD;
+     border: none;
+     border-radius: 5px;
+     font-family: var(--Subtitles);
+     font-size: 0.7rem;
+     text-transform: uppercase;
+     margin: 1vh;
+}
+
+.filter_checkboxes label::before, #internsList label::before{
+     content: "";
+     display: block;
+     position: absolute;
+     top: 10px;
+     left: 15px;
+     width: 18px;
+     height: 18px;
+     border: 2px solid var(--Background);
+     border-radius: 2.5px;
+     background-color: #EBEBF5;
+
+}
+
+.filter_checkboxes input:checked + label::before, #internsList .input:checked + label::before{
+     background-color: var(--Nav);
+}
+
+.filter_checkboxes input:focus + label{
+     outline: 1.5px solid var(--Nav);
+}
+
+.filter_checkboxes input:not(.filter_btns){
+     position: absolute;
+     left: -9999px;
+}
+
+details{
+     background-color: #D6D9EF;
+     color: var(--TexteClaire);
+     border: 0.5px solid var(--TexteClaire);
+     font-family: var(--Body);
+     width: 103%;
+     padding: 2vh 2.5vw;
+}
+
+summary, summary::-webkit-details-marker{
+     font-size: 1.1rem;
+     list-style: none;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1vh 0;
+}
+
+summary::after{
+     content: "\25BC";
+     transition: 0.2s;
+}
+
+#addIntern_container form{
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: center;
+     margin: 2vh 0 1vh;
+}
+
+.addIntern_label, #addIntern_selectCourse, #addIntern_mail{
+     background-color: var(--TexteClaire);
+     color: var(--TexteFoncé);
+     font-family: var(--Subtitles);
+     font-size: 0.8rem;
+     border: 0.5px solid var(--Buttons2);
+     border-radius: 4px;
+     padding: 1.5vh 1vw;
+     margin: 0 0.25vw;
+     max-height: 40px;
+}
+
+.addIntern_label:focus, #addIntern_selectCourse:focus, #addIntern_mail:focus, #addIntern_mail:focus{
+     outline: 1px solid var(--Btn-deco);
+}
+
+.addIntern_label{
+     max-width: 150px;
+}
+
+#addIntern_selectCourse{
+     max-width: 160px;
+}
+
+#addIntern_mail{
+     width: 20vw;
+}
+
+#addIntern_createBtn{
+     background-color: var(--TexteClaire);
+     color: var(--TexteFoncé);
+     border: 0.5px solid var(--Buttons2);
+     border-radius: 4px;
+     padding: 0 0.75vw;
+     margin: 0 0.25vw;
+     font-size: 2rem;
+     cursor: pointer;
+}
+
+
+#internsList_container{
+     display: flex;
+     flex-direction: column;
+     padding: 6vh 3vw 2vh;
+     background-color: #D6D9EF;
+     gap: 10px;
+}
+
+#internsList{
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+}
+
+#internsList li{
+     display: flex;
+     flex-direction: row;
+     gap: 0.5vw;
+     font-family: var(--Subtitles);
+}
+
+.infoLabel{
+     background-color: var(--TexteClaire);
+     padding: 1.5vh 1vw;
+     border-radius: 5px;
+     border: 0.5px solid var(--Buttons2);
+     font-size: 0.8rem;
+     overflow: hidden;
+}
+
+.liSurname, .liName{
+     width: 160px;
+}
+
+.liCourse{
+     width: 200px;
+     font-family: var(--Subtitles);
+     color: var(--TexteFoncé);
+     text-transform: uppercase;
+}
+
+.liMail{
+     width: 20vw;
+     text-align: center;
+}
+
+.deleteBtn{
+     background-color: rgb(30, 28, 89, 0.85);
+     color: var(--TexteClaire);
+     font-family: var(--Subtitles);
+     font-size: 0.75rem;
+     padding: 1.75vh 2vw;
+     border-radius: 10px;
+     border: none;
+     align-self: end;
+}
+
+.showInternInfos{
+     display: list-item;
+}
+
+.hideInternInfos{
+     display: none;
+}
+
+
+
+
+
+
+
+/* #gestion-container{
+     width: 100%;
+     padding: 5vh 5vw 1vh;
+     display: grid;
+     grid-template-columns:25% 10% 65%;
+     grid-template-rows: 25% 25% 25% 25%;
+     grid-column-gap: 0;
+     grid-row-gap: 0;
+
+     grid-template-areas:
+     "filter newI newI"
+     "filter interns interns"
+     "filter interns interns"
+     ". interns interns";
+
+}
+
+#filter_checkboxes_container{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 10px;
+     background-color: var(--Container2);
+     padding: 5vh 1vw;
+     border-radius: 10px;
+     width: fit-content;
+}
+
+#filter_container{
+     grid-area: filter;
+}
+
+.inputcheckbox_container{
+     display: flex;
+     flex-direction: row;
+}
+
+     .section-title{
+          font-size: 1.5rem;
+          font-family: var(--Body);
+          text-transform: uppercase;
+          color: var(--TexteClaire);
+          text-align: center;
+     }
+
+     #filter_checkboxes{
+          display: inline-flex;
+          flex-direction: column;
+          gap: 2vh;
+     }
+
+     #filter_checkboxes label{
+          background-color: var(--TexteClaire);
+          color: var(--TexteFoncé);
+          font-family: var(--Subtitles);
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          font-weight: 800;
+          border-radius: 5px;
+          padding: 2vh 0.75vw;
+          width: 14vw;
+          text-align: center;
+          margin-right: 5px;
+     }
+
+     .deleteBtn{
+          padding: 2vh 1.5vw;
+          background-color: var(--TexteClaire);
+          font-family: var(--Subtitles);
+          font-size: 0.85rem;
+          border: none;
+          border-radius: 5px;
+          margin: 1vh;
+          width: 15vw;
+          align-self: center;
+     }
+
+     .addNewFilterBtn{
+          display: flex;
+          flex-direction: row;
+          gap: 5px;
+          justify-items: baseline;
+     }
+
+     #filter_createCourse{
+          padding: 10px 10px;
+          border-radius: 5px;
+          border: none;
+          background-color: var(--TexteClaire);
+          font-family: var(--Subtitles);
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          padding: 2vh 1vw;
+     }
+
+     .addBtn{
+          height: 3rem;
+          background-color: var(--TexteClaire);
+          border-radius: 5px;
+     }
+
+
+
+
+#addIntern_container{
+     grid-area: newI;
+}
+
+#addIntern_container legend{
+     font-family: var(--Body);
+     font-size: 1.15rem;
+     color: var(--TexteClaire);
+     text-transform: uppercase;
+
+}
+
+#addIntern_container fieldset{
+     border: none;
+     display: flex;
+     flex-direction: row;
+}
+
+
+#internsList_container{
+     grid-area: interns;
+} */

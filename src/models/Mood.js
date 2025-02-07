@@ -10,6 +10,7 @@ class Mood {
     }
   
     async save() {
+        console.log(this.en_alerte);
         return new Promise((resolve, reject) => {
             const sql = `INSERT INTO mood (id_user, update_date, score, en_alerte) 
                         VALUES (?, ?, ?, ?)`;

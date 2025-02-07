@@ -6,6 +6,7 @@ const dbPath = process.env.DB_PATH || path.resolve(__dirname, 'data/mymood.db');
 
 // Créer le dossier data s'il n'existe pas
 const fs = require('fs');
+const PasswordHandler = require('../src/utils/password');
 const dataDir = path.dirname(dbPath);
 if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
@@ -23,7 +24,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // Activer le support des clés étrangères
 db.run('PRAGMA foreign_keys = ON');
 
-db.serialize(() => {
+db.serialize(async () => {
   // Créer la table `role`
   db.run(`
         CREATE TABLE IF NOT EXISTS role(
@@ -116,53 +117,79 @@ db.serialize(() => {
     }
   });
 
-  const admin = {
+  const adminpass = await PasswordHandler.hashPassword('adminpass');
+  const superpass = await PasswordHandler.hashPassword('superpass');
+  const stagpass = await PasswordHandler.hashPassword('stagpass');
+  const users = [{
     email: 'admin@mymood.fr',
-    password: '$2a$10$AfOl0DK/9/tJlQgsNBkYh.X5QKKTSmoUVXpFJOsb9BkgShCjkmNpO',//'adminpass'
+    password: adminpass,
     role: 'admin',
     nom: 'Min',
     prenom: 'Ad'
-  }
-  const superviseur = {
+  },
+  {
     email: 'j.seigne@mymood.fr',
-    password: '$2a$10$l7UNc6MYdb1FBliej5fKw.9TqN2Ni3ZnKZW.Hv.E5EXmKKpSVsA76', //'superpass'
+    password: superpass, 
     role: 'superviseur',
     nom: 'Seigne',
     prenom: 'Jean'
-  }
-  const etudiant = {
+  },
+ {
     email: 'j.Doe@mymood.fr',
-    password: '$2a$10$6WTI7.8GfkehX1t9d1MrtuEPUOmn8gLMI/ImKEF03.y0JalKwNV7q', // 'etudpass'
-    role: 'stagiaire',
+    password: superpass, 
+    role: 'superviseur',
     nom: 'Doe',
     prenom: 'John'
+  },
+   {
+    email: 'm.smith@mymood.fr',
+    password: stagpass, 
+    role: 'stagiaire',
+    nom: 'Smith',
+    prenom: 'Mary'
+  },
+  {
+      email: 'a.jones@mymood.fr',
+      password: stagpass,
+      role: 'stagiaire',
+      nom: 'Jones',
+      prenom: 'Alice'
+  },
+  {
+      email: 'b.brown@mymood.fr',
+      password: stagpass,
+      role: 'stagiaire',
+      nom: 'Brown',
+      prenom: 'Bob'
   }
+  ];
 
   // Insérer les utilisateurs par défaut
   db.get('SELECT COUNT(*) AS count FROM user', (err, row) => {
     if (row.count === 0) {
-      db.run(`INSERT or IGNORE INTO user (email, password, role, nom, prenom) VALUES (?,?,?,?,?),(?,?,?,?,?),(?,?,?,?,?)`, [admin.email, admin.password, admin.role, admin.nom, admin.prenom, superviseur.email, superviseur.password, superviseur.role, superviseur.nom, superviseur.prenom, etudiant.email, etudiant.password, etudiant.role, etudiant.nom, etudiant.prenom], function (err) {
-        if (err) {
-          console.log(err);
-        }
-        // inserer un mood au stagiaire par défaut
-        db.run(`INSERT OR IGNORE INTO mood (id_user, update_date, score, en_alerte)
-        SELECT id_user, 
-               ?, 
-               50, 
-               0
-        FROM user 
-        WHERE role = 'stagiaire'
-        `, [new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })], function (err) {
+      users.forEach(user => {
+        db.run(`INSERT or IGNORE INTO user (email, password, role, nom, prenom) VALUES (?,?,?,?,?)`, [user.email, user.password, user.role, user.nom, user.prenom], function (err) {
           if (err) {
             console.log(err);
           }
         });
-        insertInscriptions();
+        // insertInscriptions();
+      });
+      // inserer un mood aux stagiaires par défaut
+      db.run(`INSERT OR IGNORE INTO mood (id_user, update_date, score, en_alerte)
+      SELECT id_user, 
+            ?, 
+            10, 
+            0
+      FROM user 
+      WHERE role = 'stagiaire'
+      `, [new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })], function (err) {
+        if (err) {
+          console.log(err);
+        }
       });
 
-
-    }
+    }  
   });
 
   const inscriptions = [
@@ -185,8 +212,14 @@ db.serialize(() => {
     {
       id_user: 3,
       id_groupe: 1,
-      est_responsable: 0
-    }]
+      est_responsable: 1
+    },
+    {
+      id_user: 4,
+      id_groupe: 1,
+      est_responsable: 1
+    },
+  ]
   const insertInscriptions = () => {
 
     // insérer les inscriptions par défaut si la table `inscription` est vide

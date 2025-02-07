@@ -57,9 +57,6 @@ class Inscription {
         });
     }
     
-    
-
-
 }
 
 module.exports = Inscription;

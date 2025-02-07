@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./style.css">
+     <script src="./gestion.js" defer> </script>
+     <title>MyMood app - Comment tu te sens aujourd'hui? - gestion des stagiaires</title>
+</head>
+<body>
+     <header>
+          <nav id="navbar">
+               <hgroup id="logo"> <h1> MyMood</h1>
+                    <span>Comment tu te sens aujourd'hui?</span>
+               </hgroup>
+               <input type="button" name="profil" id="profilBtn" value="Profil">
+               <input type="button" name="logout" id="logoutBtn" value="Déconnexion">
+          </nav>
+     </header>
+     <main>
+          <a href="./index.html" class="returnBtn"> Retour</a>
+          <div id="gestion_container">
+               <ul class="filter_checkboxes"> <!--FILTER MENU -->
+                    <li>
+                         <input  checked="true" type="checkbox" id="all" value="all">
+                         <label for="all"> Toutes les formations</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="front" id="front" value="front">
+                        <label for="front"> Front_End</label>
+                    </li>
+                    <li>
+                         <input type="checkbox" name="filter" id="back" value="backend">
+                         <label for="back"> Back_End</label>
+                     </li>
+                     <li>
+                         <input type="checkbox" name="filter" id="cda" value="cda">
+                         <label for="cda"> CDA</label>
+                     </li>
+                     <li>
+                         <input type="checkbox" name="filter" id="prepanum1" value="prepanum1">
+                         <label for="prepanum1"> Prépa numérique 1</label>
+                     </li>
+                     <li>
+                         <input type="checkbox" name="filter" id="prepanum2" value="prepanum2">
+                         <label for="prepanum2"> Prépa numérique 2</label>
+                     </li>
+                     <li>
+                         <input type="checkbox" name="filter" id="poa" value="poa">
+                         <label for="poa"> POA</label>
+                     </li>
+                     <li> <!-- FONCTION AJOUTER UN NOUVEAU FILTRE -->
+                         <input type="button" class="filter_btns" value="&#10010 Ajouter formation">
+                     </li>
+                     <li> <!-- FONCTION SUPPRIMER FILTRE -->
+                         <input type="button" class="filter_btns" value="Supprimer">
+                     </li>
+               </ul>
+
+               <details id="addIntern_container">
+                    <summary> AJOUTER UN STAGIAIRE</summary>
+                    <form id="forms" action="#">
+                         <input type="text" name="addName" class="addIntern_label" id="addIntern_name" placeholder="Prénom">
+                         <input type="text" name="addSurname" class="addIntern_label" id="addIntern_surname" placeholder="Nom">
+
+                         <select name="formations" id="addIntern_selectCourse">
+                              <option class="addIntern_option" value="defaultCourse">Formation</option>
+                              <option class="addIntern_option" value="front">Front End</option>
+                              <option class="addIntern_option" value="back">Back End</option>
+                              <option class="addIntern_option" value="cda">CDA</option>
+                              <option class="addIntern_option" value="prepnum1">Prépa Numérique 1</option>
+                              <option class="addIntern_option" value="prepnum2">Prépa Numérique 2</option>
+                              <option class="addIntern_option" value="poa">POA</option>
+                         </select>
+
+                         <input type="email" name="addMail" id="addIntern_mail" placeholder="imts@institutsolacroup.com">
+                         <input type="submit" value="&#43" id="addIntern_createBtn">
+                    </form>
+               </details>
+
+               <div id="internsList_container"> 
+                    <ul id="internsList"> <!--LISTE STAGIAIRES-->
+                    </ul>
+                        <input type="button" name="deleteBtn" class="deleteBtn" value="Supprimer les stagiaires sélectionnés">
+               </div>
+          </div>          
+     </main>
+     
+</body>
+</html>

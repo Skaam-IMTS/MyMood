@@ -20,7 +20,7 @@ const adminRoutes = require('./routes/adminRoutes');
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(express.static(path.join(__dirname, '.../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', authRoutes);
 app.use('/mood', moodRoutes);
